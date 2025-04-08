@@ -1,0 +1,90 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+
+{% endblock %}
+{% block nav %}
+{% endblock %}
+
+
+{% block body %}
+ <!-- Start Blog List View  -->
+ <div class="main-content">
+    <div class="rn-blog-area rn-section-gap">
+        <div class="container">
+            <div class="row row--30">
+                <div class="col-lg-8">
+                    <div class="row mt_dec--30">
+                        {%  for blogs in resultPagination.rows  %}
+                        <div class="col-lg-12 mt--30">
+                            <div class="rn-card box-card-style-default card-list-view">
+                                <div class="inner">
+                                    {% set link = 'blog/' + blogs.slug  %}
+                                    <div class="thumbnail"><a class="image" href="{{link}}"><img src="{{ blogs.img }}" alt="{{ blogs.title }}"></a>
+                                    </div>
+                                    <div class="content">
+                                        
+                                        <h4 class="title"><a href="{{link}}">  {{ blogs.title }} </a></h4>
+                                        <ul class="rn-meta-list">
+                                            <li class="separator">{{blogs.short_description}}</li>
+                                            <li>{{ toJalaali(blogs.last_edit_date_time) }}</li>
+                                           
+                                        </ul>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="col-lg-12">
+                            {% renderPaginationFront {'totalPage':resultPagination.totalPage,'url':url}  %}{% endRenderPaginationFront %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt_md--40 mt_sm--40">
+                    <aside class="rwt-sidebar">
+                        <div class="rbt-single-widget widget_search mt--40">
+                            <div class="inner">
+                                <form class="blog-search" action="#"><input type="text" placeholder="جستجو ...">
+                                    <button class="search-button">
+                                        <i class="feather-search"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="rbt-single-widget widget_categories mt--40">
+                            <h3 class="title">دسته بندیها </h3>
+                            <div class="inner">
+                                <ul class="category-list ">
+                                    {%  for Cat in allCategoryBlog  %}
+                                    <li><a href="blogs/{{ Cat.slug  }}/"><span
+                                        class="left-content">{{  Cat.title }} </a></li>
+                                    {% endfor %}          
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="rbt-single-widget widget_recent_entries mt--40">
+                            <h3 class="title">پست ها </h3>
+                            <div class="inner">
+                                <ul>
+                                {%  for Blog in lastBlog  %}
+                                  <li>
+                                {% set link = 'blog/' + Blog.slug  %}
+                                <a class="d-block" href="{{link}}"> {{Blog.title}}
+
+                                  </a>
+                                </li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                       
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+
+{% endblock %}

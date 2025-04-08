@@ -1,0 +1,104 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+
+<link rel="stylesheet" href="{{frontend_asset_url('css/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ frontend_asset_url('css/toastr.min.css') }}">
+{% endblock %}
+
+{% block body %}
+
+
+
+<!-- Start Contact Area  -->
+    <div class="main-content">
+        <div class="rwt-contact-area rn-section-gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 mb--40">
+                        <div class="section-title text-center" data-sal="slide-up" data-sal-duration="700" data-sal-delay="100">
+                            <h4 class="subtitle "><span class="theme-gradient">فرم ورود</span></h4>
+                            <h2 class="title w-600 mb--20">لطفا مشخصات را به درستی وارد کنید    </h2>
+                        </div>
+                    </div>
+                    {% AlertDanger "no-access" %}
+                    برای دسترسی به این قسمت باید وارد حساب کاربری شوید.
+                {% endAlertDanger %}  
+                {% AlertSuccess "success-logout" %}
+                                با موفقیت خارج شدید.
+                {% endAlertSuccess %}   
+                {% AlertDanger "-1" %}
+                ایمیل یا کلمه عبور صحیح نمی باشد.
+            {% endAlertDanger %}
+            {% AlertDanger "-2" %}
+                حساب کاربری شما مسدود شده است.
+            {% endAlertDanger %}  
+
+
+                    
+                            <form method="post" class="contact-form-1 rwt-dynamic-form"   autocomplete="off"  action="" id="loginForm" style="max-width: 85%;
+    padding-right: 112px;" >
+                                
+                                
+                                <div class="form-group">
+                                    <input type="txt" dir="ltr"  autocomplete="off"  id="mobile" name="mobile" placeholder="موبایل شما">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" dir="ltr" autocomplete="off" id="password" name="password" placeholder="رمزعبور شما">
+                                </div>
+                                
+                                
+
+                                <div class="form-group">
+                                    <button name="submit" type="submit"  name="btn_login" id="submit" class="btn-default btn-large rn-btn">
+                                        <span>  ورود</span>
+                                    </button>
+                                </div>
+                            </form>
+                   
+                    <h6 class="subtitle "><a href="/user/register"><span class="theme-gradient"> ساخت حساب کاربری جدید </a></span></h4>
+                    <h6 class="subtitle "><a href="/user/reset-password"><span class="theme-gradient">  بازیابی حساب کاربری </a></span></h4>
+
+                </div>
+            
+
+                    
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- End Contact Area  -->
+
+
+
+
+
+
+{% endblock %}
+{% block js %}
+<script src="{{ frontend_asset_url('controllers/user/login.js') }}"></script>
+
+<script src="{{ frontend_asset_url('js/toastr.min.js')}}"></script>    
+<script src="{{ frontend_asset_url('js/sweetalert2.min.js')}}"></script>  
+
+<script src="{{ frontend_asset_url('js/jquery.validate.min.js') }}"></script>
+<script>
+    $(document).ready(function(){
+
+    
+    $('#loginForm').validate({
+        rules:{
+            mobile : "required",
+            password : "required",
+        },
+        messages:{
+            password : "لطفا موبایل  را وارد نمایید.",
+            password : "لطفا کلمه عبور را وارد نمایید.",
+        }
+    });
+
+
+});
+
+</script>
+{% endblock %}

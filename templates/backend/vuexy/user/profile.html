@@ -1,0 +1,182 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+{% endblock %}
+{% block navbar %}
+<div class="col-12">
+    <h2 class="float-start mb-0">
+        {{ title }}
+    </h2>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+               
+                {% AlertDanger "err1" %}
+                    {{ t('user.profile_validation_first_name') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err2" %}
+                    {{ t('user.profile_validation_last_name') }}
+                {% endAlertDanger %}  
+                {% AlertSuccess "ok" %}
+                    {{ t('user.profile_save_success') }}
+                {% endAlertSuccess %}                     
+                {% AlertDanger "err3" %}
+                    {{ t('user.profile_validation_email_empty') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err4" %}
+                    {{ t('user.profile_validation_email_not_valid') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err5" %}
+                    {{ t('user.profile_validation_pass2_is_empty') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err6" %}
+                    {{ t('user.profile_validation_pass3_is_empty') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err7" %}
+                    {{ t('user.profile_validation_pass3_is_not_match') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "-1" %}
+                    {{ t('user.profile_save_error_email') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "-2" %}
+                    {{ t('user.profile_save_error_current_password_is_not_correct') }}
+                {% endAlertDanger %}  
+
+                {% AlertDanger "csrf_token_invalid" %}
+                    {{ t('csrf_token_invalid') }}
+                {% endAlertDanger %}  
+
+                <form class="form form-horizontal" id="form-profile" method="post" action="" enctype="multipart/form-data">
+                    {{ csrf_token()  }}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="first_name">
+                                        {{ t('user.profile_first_name') }} : 
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="first_name" class="form-control" name="first_name" value="{{ user.first_name }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="last_name">
+                                        {{ t('user.profile_last_name') }} : 
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="last_name" class="form-control" name="last_name" value="{{ user.last_name }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="email">
+                                        {{ t('user.profile_email') }} : 
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input dir="ltr" type="text" id="email" class="form-control" name="email" value="{{ user.email }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="avatar">
+                                        {{ t('user.profile_avatar') }} : 
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    {% if(user.avatar === '') %}
+                                        <input dir="ltr" type="file" id="avatar" class="form-control" name="avatar">
+                                    {% else %} 
+                                        {% set avatar_url = user.avatar %}
+                                        <a href="{{ avatar_url }}" target="_blank">
+                                            <img src="{{ avatar_url }}" alt="avatar" class="round" style="width: 200px;height:100px;">
+                                        </a>
+                                        &nbsp;
+                                        <button type="button" onclick="delete_avatar();" class="btn btn-danger">
+                                            {{ t('user.profile_delete_avatar') }}
+                                        </button>
+                                    {% endif %} 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="alert alert-warning text-center">
+                                {{ t('user.profile_hint_password_change') }} 
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="pass1">
+                                        {{ t('user.profile_pass1') }} : 
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input dir="ltr" type="password" id="pass1" class="form-control" name="pass1">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="pass2">
+                                        {{ t('user.profile_pass2') }} : 
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input dir="ltr" type="password" id="pass2" class="form-control" name="pass2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="pass3">
+                                        {{ t('user.profile_pass3') }} : 
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input dir="ltr" type="password" id="pass3" class="form-control" name="pass3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9 offset-sm-3">
+                            <button type="submit" class="btn btn-primary me-1">
+                                {{ t('save') }}
+                            </button>
+                            <button type="button" onclick="redirect(BACKEND_URL);" class="btn btn-danger">
+                                {{ t('back') }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}  
+<script src="{{ backend_asset_url('js/jquery.validate.min.js') }}"></script>
+<script src="{{ backend_asset_url('controllers/user/profile.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,159 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+    <link rel="stylesheet" href="{{ backend_asset_url('css/select2.min.css') }}">
+{% endblock %}
+{% block navbar %}
+<div class="col-12">
+    <h2 class="float-start mb-0">
+        {{ title }}
+    </h2>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+                {% AlertSuccess "status_changed" %}
+                    {{ t('status_changed') }}
+                {% endAlertSuccess %}                     
+
+                {% AlertSuccess "delete_success" %}
+                    {{ t('delete_success') }}
+                {% endAlertSuccess %}                     
+
+                {% AlertDanger "delete_error" %}
+                    {{ t('category.delete_error') }}
+                {% endAlertDanger %}  
+
+
+
+                <form class="form form-horizontal" method="get" action="">
+                    <div class="row">
+                       
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="title">
+                                        {{ t('category.title') }} : 
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="title" class="form-control" name="title" value="{{ params.title }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9 offset-sm-3">
+                            <button type="submit" class="btn btn-primary me-1">
+                                {{ t('search') }}
+                            </button>
+                            <button type="button" onclick="redirect(BACKEND_URL+'categoryOnlineCourse/?');" class="btn btn-danger">
+                                {{ t('reset') }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">
+            
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+
+                {% if(pagination.totalRows == 0) %}
+                     <div class="text-center alert alert-warning">
+                        {{ t('rows_not_found') }}
+                     </div>
+                {% else %}
+                    {% renderPagination {'totalPage':pagination.totalPage,'url':url}  %}{% endRenderPagination %}
+
+                    <div class="table-responsive-fixed">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>
+                                        {% renderField {'title':'#','sort_field':'_id','url':url,'sortFields':sortFields} %} {% endRenderField %}
+                                    </th>
+                                    <th> {% renderField {'title':t('category.title'),'sort_field':'title','url':url,'sortFields':sortFields} %} {% endRenderField %}</th>
+                                    <th> {% renderField {'title':t('last_edit_date_time'),'sort_field':'last_edit_date_time','url':url,'sortFields':sortFields} %} {% endRenderField %}</th>
+                                    <th> {% renderField {'title':t('status'),'sort_field':'status','url':url,'sortFields':sortFields} %} {% endRenderField %}</th>
+                                    <th>{{ t('actions') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% set renderID = renderID(pagination.totalRows) %}
+                                {% set rowID  = renderID.n %}
+                                {% for row in pagination.rows %}
+                                    {% if(renderID.opt === '+') %}
+                                        {% set rowID  = rowID + 1  %}
+                                    {% else %}
+                                        {% set rowID  = rowID - 1  %}
+                                    {% endif %}
+                                <tr class="text-center">
+                                    <td>
+                                        {{ rowID }}
+                                    </td>
+                                    <td>
+                                        {{ row.title }}
+                                    </td>
+                                    <td>
+                                    <span dir="ltr">
+                                            {{ toJalaali(row.last_edit_date_time) }}
+                                    </span>
+                                    </td>
+                                    <td>
+                                        {% if(row.status) %}
+                                            <a href="{{ url }}&status_id={{ row._id }}&status_value=0&page={{ page }}" class="btn btn-success">
+                                                <span class="fa-solid fa-check"></span>
+                                            </a>
+                                        {% else %}
+                                            <a href="{{ url }}&status_id={{ row._id }}&status_value=1&page={{ page }}" class="btn btn-danger">
+                                                <span class="fa-solid fa-close"></span>
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                {{ t('actions') }}
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="{{ route_url }}edit/{{ row._id }}/?{{ params_query }}&page={{ page }}">
+                                                    {{ t('action_edit') }}
+                                                </a>
+                                                <a class="dropdown-item" href="javascript:deleteRow('{{ row.title }}','{{ row._id }}','{{ delete_url }}')">
+                                                    {{ t('action_delete') }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {% renderPagination {'totalPage':pagination.totalPage,'url':url}  %}{% endRenderPagination %}
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}  
+    <script src="{{ backend_asset_url('js/select2.min.js') }}"></script>
+    <script src="{{ backend_asset_url('controllers/categoryOfflineCourse/index.js') }}"></script>
+{% endblock %}

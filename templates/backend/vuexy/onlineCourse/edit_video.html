@@ -1,0 +1,126 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+    <link rel="stylesheet" href="{{ backend_asset_url('css/select2.min.css') }}">
+{% endblock %}
+{% block navbar %}
+<div class="col-12">
+    <h2 class="float-start mb-0">
+        {{ title }}
+    </h2>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+               
+                {% AlertDanger "err1" %}
+                    مقدار Flag را وارد نمایید .
+                {% endAlertDanger %}  
+               
+                {% AlertSuccess "ok" %}
+                    {{ t('save_success') }}
+                {% endAlertSuccess %}                     
+
+                {% AlertDanger "error" %}
+                    {{ t('save_error') }}
+                {% endAlertDanger %}  
+
+
+                        <form class="form form-horizontal" id="form-edit" method="post" action="" enctype="multipart/form-data">
+                            {{ csrf_token() }}
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label" for="title">
+                                                عنوان   :
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input dir="rtl" type="text" id="title" class="form-control" name="title" value="{{ row.title }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label" for="link">
+                                                لینک   :
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input dir="ltr" type="text" id="link" class="form-control" name="link" value="{{ row.link }}">
+                                        </div>
+                                    </div>
+                                </div>   
+                               
+                                <div class="col-12">
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label" for="status">
+                                                وضعیت :
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <select name="status" id="status" class="form-control">
+                                                <option value="1" {% if(form_data.status === "1") %}selected{% endif %}>{{ t('status_enable') }}</option>
+                                                <option value="0" {% if(form_data.status === "0") %}selected{% endif %}>{{ t('status_disabled') }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                                <div class="col-12">
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label" for="img">
+                                                تصویر کوچک :
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            {% if(row.img === '') %}
+                                            <input dir="ltr" type="file" id="img" class="form-control" name="img">
+                                            {% else %}
+                                            {% set img_url = row.img %}
+                                            <a href="{{ img_url }}" target="_blank">
+                                                <img src="{{ img_url }}" alt="file" class="round" style="width: 200px;height:100px;">
+                                            </a>
+                                            &nbsp;
+                                            <button type="button" onclick="delete_img('{{row.course_id}}','{{row._id}}');" class="btn btn-danger">
+                                                {{ 'حذف تصویر'}}
+                                            </button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                <div class="col-sm-9 offset-sm-3">
+                                    <button type="submit" class="btn btn-primary me-1">
+                                        {{ t('save') }}
+                                    </button>
+                                    <button type="button" onclick="redirect(BACKEND_URL+'onlineCourse/list_videos/{{row.course_id}}');" class="btn btn-danger">
+                                        {{ t('back') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}  
+<script src="{{ backend_asset_url('js/select2.min.js') }}"></script>
+<script src="{{ backend_asset_url('controllers/onlineCourse/edit_video.js') }}"></script>
+{% endblock %}

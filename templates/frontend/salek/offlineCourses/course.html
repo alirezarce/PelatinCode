@@ -1,0 +1,124 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+<link rel="stylesheet" href="{{frontend_asset_url('css/video-js.css')}}">
+
+{% endblock %}
+{% block nav %}
+{% block body %}
+
+{% block seo %}
+<meta name="keywords" content="{{seo}}">
+{% endblock %}
+{% block description_seo %}
+<meta name="description" content="{{description_seo}}">
+{% endblock %}
+<div class="rn-blog-details-area">
+    <div class="post-page-banner rn-section-gapTop">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="content text-center">
+                        <div class="page-title" style="padding-top: 50px;">
+                            <h1 class="theme-gradient"> {{course.title}}</h1>
+                            {% if(user_info._id) %}
+                            <div class="button-group">
+                                <form action="/order/creat/{{course.slug}}" method="post">
+                                <input  name="type" id="type" value="2" type="hidden">
+                                <input  name="course_id" id="course_id" value="{{ course._id}} " type="hidden">
+                                <button name="submit" type="submit" name="btn_save" id="submit" class="btn-default btn-large rn-btn">
+                                    <span> خرید دوره  </span>
+                                </button>                                
+                            </form>
+                            </div>
+                            {%else%}
+                            <h4 class="subtitle">
+                                <span class="theme-gradient">   برای استفاده از خدمات مجموعه لطفا ثبت نام کنید  </span>
+                            </h4>
+                            <a class="btn-default btn-small" href="user/register">  ثبت نام  </a>
+                            {% endif %}
+                        </div>
+
+
+                        <div class="page-title" style="padding-top: 21px;"> 
+                            <span class="theme-gradient">
+                                {{number_format(course.price)}} تومان
+                            </span>
+    
+                        </div>
+                        
+
+                        
+                        <div class="thumbnail alignwide mt--60"><img class="w-100 radius" src="{{course.medium_img}}" alt="{{course.title}}"></div>
+                        
+                        <div class="col-lg-12">
+                            <div class="row row--15">
+                                <div class="col-lg-6 col-md-6 col-12 mt--30">
+                                    <video id="video1" class="video-js vjs-default-skin" controls width="400" height="300" poster="{{course.img_video1}}">
+                                        <source src="{{course.link_video1}}" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-12 mt--30">
+                                    <video id="video2" class="video-js vjs-default-skin" controls width="400" height="300" poster="{{course.img_video2}}">
+                                        <source src="{{course.link_video2}}" type="video/mp4">
+                                    </video>
+                                </div>  
+                                <div class="col-lg-6 col-md-6 col-12 mt--30">
+                                    <video id="video3" class="video-js vjs-default-skin" controls width="400" height="300" poster="{{course.img_video3}}">
+                                        <source src="{{course.link_video3}}"  type="video/mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="blog-details-content pt--60 rn-section-gapBottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="content">
+
+                        {{ course.long_description | safe }} 
+
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Advance Pricing Area  -->
+
+{% endblock %}
+
+
+{% endblock %}
+{% block js %}
+<script src="{{ frontend_asset_url('controllers/offline_course/course.js') }}"></script>
+<script src="{{ frontend_asset_url('js/video.min.js')}}"></script>  
+<script>
+    // Initialize Video.js
+    const player1 = videojs('video1', {
+      controls: true,
+      autoplay: false,
+      preload: 'auto',
+      fluid: true, // Makes it responsive
+    });
+    const player2 = videojs('video2', {
+        controls: true,
+        autoplay: false,
+        preload: 'auto',
+        fluid: true, // Makes it responsive
+    });
+    const player3 = videojs('video3', {
+        controls: true,
+        autoplay: false,
+        preload: 'auto',
+        fluid: true, // Makes it responsive
+    });
+ 
+  </script>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+    <link rel="stylesheet" href="{{ backend_asset_url('css/select2.min.css') }}">
+{% endblock %}
+{% block navbar %}
+<div class="col-12">
+    <h2 class="float-start mb-0">
+        {{ title }}
+    </h2>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="content-body">
+
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">
+            
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+
+
+                    <div class="table-responsive-fixed">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="text-center">
+                                    <th> عنوان </th>
+                                    <th> آخرین تاریخ ویرایش </th>
+                                    <th>{{ t('actions') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in pagination %}
+                                <tr class="text-center">
+                                    <td>
+                                        {{ row.title }}
+                                    </td>
+                                    <td>
+                                        <span dir="ltr">
+                                            {{ toJalaali(row.last_edit_date_time) }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-success" href="{{ route_url }}admin/settings/edit_slider/{{ row._id }}/">
+                                            {{ t('action_edit') }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}  
+    <script src="{{ backend_asset_url('js/select2.min.js') }}"></script>
+    <script src="{{ backend_asset_url('controllers/page/index.js') }}"></script>
+{% endblock %}

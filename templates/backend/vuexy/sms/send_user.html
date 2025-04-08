@@ -1,0 +1,111 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+    <link rel="stylesheet" href="{{ backend_asset_url('css/select2.min.css') }}">
+{% endblock %}
+{% block navbar %}
+<div class="col-12">
+    <h2 class="float-start mb-0">
+        {{ title }}
+    </h2>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+                
+                {% AlertDanger "csrf_token_invalid" %}
+                    {{ t('csrf_token_invalid') }}
+                {% endAlertDanger %}  
+
+                {% AlertSuccess "ok" %}
+                    {{ t('با موفقیت ارسال شد') }}
+                {% endAlertSuccess %}                     
+
+                
+
+
+                    <form class="form form-horizontal"  id="form-send" method="post" action="" enctype="multipart/form-data">
+                        {{ csrf_token() }}
+                        <div class="row">
+
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label" for="mobile">
+                                               موبایل کاربر :
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <select id="mobile" class="form-control" name="mobile">
+                                            <option value="" {% if(form_data.category_id==="" ) %}selected{% endif %}>----</option>
+                                            {% for cat in usersMobile %}
+                                            <option value="{{ cat.mobile }}" {% if(form_data.category_id==cat._id ) %}selected{% endif %}>
+                                                {{ cat.mobile }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                           
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label" for="address">
+                                             متن پیام :
+                                            ‌
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <textarea style="height:120px ;" id="message" class="form-control" name="message" autocomplete="off">{{ form_data.message }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label" for="content">
+                                             الگو :
+                                            ‌
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <b>%mobile%</b> <br>
+                                        <b>%firstname%</b> <br>
+                                        <b>%lastname%</b> <br>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                                        
+                            <div class="col-sm-9 offset-sm-3">
+                                <button type="submit" class="btn btn-primary me-1">
+                                    {{ t('ارسال') }}
+                                </button>
+                                <button type="button" onclick="redirect(BACKEND_URL+'sms/log');" class="btn btn-danger">
+                                    {{ t('back') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}  
+<script src="{{ backend_asset_url('js/select2.min.js') }}"></script>
+<script src="{{ backend_asset_url('controllers/sms/sendUser.js') }}"></script>
+
+
+
+{% endblock %}

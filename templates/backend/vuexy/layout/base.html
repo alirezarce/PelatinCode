@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html dir="rtl" class="loading semi-dark-layout" lang="fa" data-layout="semi-dark-layout" data-textdirection="rtl">
+<head>
+    <script>
+        BACKEND_URL = '{{BACKEND_URL}}';
+    </script>
+    <base href="{{FRONTEND_URL}}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+    <title>{{title}}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ backend_asset_url('images/ico/favicon.ico') }}">
+    <link rel="stylesheet" type="text/css" href="{{ backend_asset_url('vendors/css/vendors-rtl.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ backend_asset_url('css-rtl/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ backend_asset_url('css-rtl/bootstrap-extended.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ backend_asset_url('css-rtl/components.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ backend_asset_url('css-rtl/themes/dark-layout.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ backend_asset_url('css-rtl/themes/semi-dark-layout.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ backend_asset_url('css-rtl/core/menu/menu-types/vertical-menu.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ backend_asset_url('css-rtl/custom-rtl.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ backend_asset_url('css/sweetalert2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ backend_asset_url('css/fontawesome.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ backend_asset_url('css/style-rtl.css') }}">
+    {% block css %}{% endblock %}
+</head>
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static" data-open="click" data-menu="vertical-menu-modern">
+
+    {% include '../layout/nav.html' %}
+
+    {% include '../layout/sidebar.html' %}
+
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper container-xxl p-0">
+            <div class="content-header row">
+                <div class="content-header-left col-md-9 col-12 mb-2">
+                    <div class="row breadcrumbs-top">
+                        {% block navbar %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+
+    {% include '../layout/footer.html' %}
+    <script src="{{ backend_asset_url('js/jquery-3.6.1.min.js') }}"></script>
+    <script src="{{ backend_asset_url('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ backend_asset_url('vendors/js/waves/waves.min.js') }}"></script>
+    <script src="{{ backend_asset_url('vendors/js/unison-js/unison-js.min.js') }}"></script>
+    <script src="{{ backend_asset_url('vendors/js/feather-icons/feather-icons.min.js') }}"></script>
+    <script src="{{ backend_asset_url('vendors/js/perfectscrollbar/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ backend_asset_url('js/core/app-menu.min.js') }}"></script>
+    <script src="{{ backend_asset_url('js/sweetalert2.min.js') }}"></script>
+    <script src="{{ backend_asset_url('js/core/app.js') }}"></script>
+    <script src="{{ backend_asset_url('js/jquery.validate.min.js') }}"></script>
+    <script src="{{ backend_asset_url('js/init.js') }}"></script>
+    {% block js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,128 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+    <link rel="stylesheet" href="{{ backend_asset_url('css/select2.min.css') }}">
+{% endblock %}
+{% block navbar %}
+<div class="col-12">
+    <h2 class="float-start mb-0">
+        {{ title }}
+    </h2>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+                {% AlertSuccess "status_changed" %}
+                    {{ t('status_changed') }}
+                {% endAlertSuccess %}                     
+
+                {% AlertSuccess "delete_success" %}
+                    {{ t('delete_success') }}
+                {% endAlertSuccess %}                     
+
+                {% AlertDanger "delete_error" %}
+                    خطا در حذف
+                {% endAlertDanger %}  
+                
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">
+            
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+
+                {% if(pagination.totalRows == 0) %}
+                     <div class="text-center alert alert-warning">
+                        {{ t('rows_not_found') }}
+                     </div>
+                {% else %}
+                    {% renderPagination {'totalPage':pagination.totalPage,'url':url}  %}{% endRenderPagination %}
+
+                    <div class="table-responsive-fixed">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>ایدی</th>
+                                    <th>
+                                        عنوان
+                                    </th>
+                                    <th>نام</th>
+                                    <th>وضعیت</th>
+                                    <th>{{ t('actions') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              
+                               
+                                {% for row in data_skyroom.result %} 
+                                <tr class="text-center">
+                                    
+                                    <td>
+                                        {{row.id}}
+                                    </td>
+    
+                                    <td>
+                                        {{ row.name}}
+                                    </td>                            
+                                    <td>
+                                        {{ row.title }}
+                                    </td>
+                                    
+                                    <td>
+                                        {% if(row.status =='1') %}
+                                            <a  class="btn btn-success">
+                                                <span class="fa-solid fa-check"></span>
+                                            </a>
+                                        {% else %}
+                                            <a class="btn btn-danger">
+                                                <span class="fa-solid fa-close"></span>
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                {{ t('actions') }}
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="{{url_users}}{{row.id}}">
+                                                    {{ t(' لیست کاربران این اتاق') }}
+                                                </a>
+                                                <a class="dropdown-item" href="javascript:deleteRow('{{ row.title }}','{{ row.id }}','{{ delete_url }}')">
+                                                    {{ t('action_delete') }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {% renderPagination {'totalPage':pagination.totalPage,'url':url}  %}{% endRenderPagination %}
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}  
+    <script src="{{ backend_asset_url('js/select2.min.js') }}"></script>
+    <script src="{{ backend_asset_url('controllers/skyRoom/index_rooms.js') }}"></script>
+{% endblock %}

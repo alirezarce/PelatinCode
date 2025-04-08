@@ -1,0 +1,144 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+
+<link rel="stylesheet" href="{{frontend_asset_url('css/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ frontend_asset_url('css/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ frontend_asset_url('css/persianDatepicker-default.css') }}">
+    <!-- <link href="{{backend_asset_url('vendors/css/pickers/flatpickr/flatpickr.min.css')}}" rel="stylesheet"/>
+    <link href="{{backend_asset_url('vendors/css/pickers/bootstrap/date.css')}}" rel="stylesheet"/>
+    <link href="{{backend_asset_url('vendors/css/libs/pickr/pickr-themes.css')}}" rel="stylesheet"/>
+    <link href="{{backend_asset_url('vendors/css/pickers/flatpickr/flatpickr.css')}}" rel="stylesheet"/> -->
+{% endblock %}
+
+{% block body %}
+
+ <!-- Start Contact Area  -->
+ <div class="main-content">
+    <div class="rwt-contact-area rn-section-gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mb--40">
+                    <div class="section-title text-center" data-sal="slide-up" data-sal-duration="700" data-sal-delay="100">
+                        <h4 class="subtitle "><span class="theme-gradient"> پروفایل</span></h4>
+                        <h2 class="title w-600 mb--20"> مشخصات شما</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row row--15">
+                <div class="col-lg-12">
+                    <div class="rn-contact-address mt_dec--30">
+                        <div class="row">
+                            
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="rn-address">
+                                    <div class="icon">
+                                        <i class="feather-headphones"></i>
+                                    </div>
+                                    <div class="inner">
+                                        <h4 class="title">شماره تماس  شما</h4>
+                                        <p><a href="#">{{ user.mobile }}</a></p>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <div class="row mt--40 row--15">
+                <div class="col-lg-7">
+                    <form class="contact-form-1 rwt-dynamic-form" id="contact-form" method="POST" enctype="multipart/form-data" >
+                        <div class="form-group">
+                            <label for="fn">  نام   شما: </label>
+                            <input type="text" autocomplete="off" name="fn" id="fn" value="{{ user.fn }}"  placeholder="نام شما">
+                            
+                        </div>
+                        <div class="form-group">
+                            <label for="ln">  نام خانوادگی  شما: </label>
+                            <input type="text"  autocomplete="off" name="ln" id="ln" value="{{ user.ln }}" placeholder=" نام خانوادگی  شما">
+                        </div>
+                        <div class="form-group">
+                            <label for="email"> ایمیل شما: </label>
+
+                            <input  autocomplete="off" id="email" name="email"   value="{{ user.email}}" placeholder="ایمیل شما">
+                        </div>
+                        <div class="form">
+                            <label for="address" >تاریخ تولد: </label>
+                            <input class="usage" id="datepicker"  name="date_birth_shamsi" value="{{user.date_birth_shamsi}}">                           
+                        </div>
+                        <div class="form-group">
+                            <label for="address">آدرس: </label>
+
+                            <textarea name="address" id="address" placeholder=" آدرس">
+                            {{ user.address }}
+                            </textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="password1">کلمه عبور جاری : </label>
+                            <input type="password" dir="ltr"  class="form-control" id="password1" name="password1">
+                          </div>      
+                          <div class="form-group">
+                              <label for="password2">کلمه عبور جدید : ‌</label>
+                              <input type="password" dir="ltr" class="form-control" id="password2" name="password2">
+                          </div>      
+                          <div class="form-group">
+                              <label for="password3">تکرار کلمه عبور جدید :‌ </label>
+                              <input type="password" dir="ltr" class="form-control" id="password3" name="password3">
+                          </div>
+                          <div class="form-group">
+                            <label for="avatar"> آواتار : </label>
+                            {% if(avatar) %}
+                                {% set avatar_url = user.avatar %}
+                                <a href="{{ avatar_url }}" target="_blank">
+                                    <img src="{{ avatar_url }}" alt="avatar" class="round" style="width: 200px;height:100px;">
+                                </a>
+                                &nbsp;
+                                <button type="button" onclick="delete_avatar();" class="btn-default btn-large btn-border">
+                                    {{ t('user.profile_delete_avatar') }}
+                                </button>
+                            {% else %} 
+                                <input dir="ltr" type="file" id="avatar" class="btn-default" name="avatar">
+                            {% endif %} 
+                        </div> 
+                        <div class="form-group">
+                            <button name="submit" type="submit" name="btn_save" id="submit" class="btn-default btn-large rn-btn">
+                                <span> به روز رسانی </span>
+                            </button>
+                        </div>
+                        
+                        
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Contact Area  -->
+
+
+
+
+
+
+{% endblock %}
+{% block js %}
+<script src="{{ frontend_asset_url('/js/persianDatepicker.min.js') }}"></script>
+<script src="{{ frontend_asset_url('controllers/user/profile.js') }}"></script>
+
+<script type="text/javascript">
+    $("#datepicker").attr("autocomplete", "off");
+
+    $(function () {
+        //usage
+        $(".form").persianDatepicker();
+        //themes
+        $("#datepicker").persianDatepicker({ alwaysShow: true,  formatDate: "YYYY-0M-0D" });
+    });
+</script>
+{% endblock %}

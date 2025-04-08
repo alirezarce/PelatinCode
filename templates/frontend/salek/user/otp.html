@@ -1,0 +1,137 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+{% endblock %}
+
+{% block body %}
+
+
+
+<!-- Start Contact Area  -->
+<style>
+    #formCounter {
+        font-size: 2em;
+        color: #007bff;
+        font-weight: bold;
+        text-align: center; /* Center the number */
+        margin-bottom: 10px; /* space between the counter and the form*/
+        display: block; /*Make sure is on a single line */
+     }
+
+    #myForm {
+       transition: opacity 0.5s ease-in-out; /* Animation for form */
+    }
+    
+    .hidden {
+        opacity: 0;  /* To hide the element */
+        pointer-events: none;  /* Disable pointer interactions */
+       
+    }
+</style>
+    <div class="main-content">
+        <div class="rwt-contact-area rn-section-gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 mb--40">
+                        <div class="section-title text-center" data-sal="slide-up" data-sal-duration="700" data-sal-delay="100">
+                            <h4 class="subtitle "><span class="theme-gradient">مر</span></h4>
+                            <h2 class="title w-600 mb--20">
+                                <div class="alert alert-info text-center" id="countdownTimer">Remaining Time: <span id="timer">90</span> seconds</div>
+
+                            
+                            </h2>
+                        </div>
+                    </div>
+               
+                    
+                            <form class="contact-form-1 rwt-dynamic-form"  id="myForm"  autocomplete="off"  action="" id="frm-login" >
+                                
+                                
+                                <div class="form-group">
+                                    <input type="txt" id="otp" name="otp" placeholder="کد  otp">
+                                </div>        
+
+                                <div class="form-group">
+                                    <button name="submit" type="submit"  name="btn_login" id="submit" class="btn-default btn-large rn-btn">
+                                        <span>  ورود</span>
+                                    </button>
+                                </div>
+                            </form>
+                   
+                    <h6 class="subtitle "><a href="/user/register"><span class="theme-gradient"> ساخت حساب کاربری جدید </a></span></h4>
+                    <h6 class="subtitle "><a href="/user/recovery"><span class="theme-gradient">  بازیابی حساب کاربری </a></span></h4>
+
+                </div>
+            
+
+                    
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- End Contact Area  -->
+
+
+
+
+
+
+{% endblock %}
+{% block js %}
+
+<script src="{{ frontend_asset_url('js/jquery.validate.min.js') }}"></script>
+
+<!-- <script>
+    var timeout = 60000;
+  
+    setTimeout(function () {
+       window.location = "http://localhost:12000";
+    }, timeout);
+  </script>  -->
+  <script>
+    $(document).ready(function () {
+        // Countdown Timer for Registration Form
+        let timer = 90;
+        const timerElement = $('#timer');
+
+        const countdownInterval = setInterval(() => {
+            timer--;
+            timerElement.text(timer);
+
+            if (timer <= 0) {
+                clearInterval(countdownInterval);
+                $('#countdownTimer').text('Time is up! Please refresh the page.').removeClass('alert-info').addClass('alert-danger');
+            }
+        }, 1000);
+
+        // OTP Modal Countdown Logic
+        const form = document.getElementById('registerForm');
+        const otpModal = new bootstrap.Modal(document.getElementById('otpModal'));
+        const modalCountdownElement = document.getElementById('modalCountdown');
+
+        let modalCountdownInterval;
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            otpModal.show();
+            startModalCountdown(60);
+        });
+
+        function startModalCountdown(duration) {
+            let timeRemaining = duration;
+            modalCountdownElement.textContent = timeRemaining;
+
+            modalCountdownInterval = setInterval(() => {
+                timeRemaining--;
+                modalCountdownElement.textContent = timeRemaining;
+
+                if (timeRemaining <= 0) {
+                    clearInterval(modalCountdownInterval);
+                    otpModal.hide();
+                }
+            }, 1000);
+        }
+    });
+</script>
+  
+{% endblock %}

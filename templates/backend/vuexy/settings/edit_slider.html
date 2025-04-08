@@ -1,0 +1,125 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+{% endblock %}
+{% block navbar %}
+<div class="col-12">
+    <h2 class="float-start mb-0">
+        {{ title }}
+    </h2>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+               
+                {% AlertDanger "err1" %}
+                    {{ t('category.validation_title_seo_required') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err2" %}
+                    {{ t('category.validation_description_seo_required') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err3" %}
+                    لطفا متن صفحه را وارد نمایید.
+                {% endAlertDanger %}  
+                {% AlertDanger "csrf_token_invalid" %}
+                    {{ t('csrf_token_invalid') }}
+                {% endAlertDanger %}  
+
+                {% AlertSuccess "ok" %}
+                    {{ t('save_success') }}
+                {% endAlertSuccess %}                     
+
+                {% AlertDanger "0" %}
+                    {{ t('save_error') }}
+                {% endAlertDanger %}  
+
+                <form class="form form-horizontal" id="form-edit" method="post" action="" enctype="multipart/form-data">
+                    {{ csrf_token()  }}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="title">
+                                        عنوان  :‌
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="title" name="title" value="{{row.title}}" class="form-control" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="img">
+                                        تصویر  :
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    {% if(row.img === '') %}
+                                    <input dir="ltr" type="file" id="img" class="form-control" name="img">
+                                    {% else %}
+                                    {% set img_url = row.img %}
+                                    <a href="{{ img_url }}" target="_blank">
+                                        <img src="{{ img_url }}" alt="file" class="round" style="width: 200px;height:100px;">
+                                    </a>
+                                    &nbsp;
+                                    <button type="button" onclick="delete_img('{{row._id}}');" class="btn btn-danger">
+                                        {{ 'حذف تصویر'}}
+                                    </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="link">
+                                    لینک  :‌
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input dir="ltr" type="text" name="link" id="link" class="form-control" value="{{ row.link }}">
+                                </div>
+                            </div>
+                        </div>
+                     
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="content">
+                                        متن   : 
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <textarea style="height:120px;" id="content" class="form-control" name="content">{{ row.content }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    
+                        <div class="col-sm-9 offset-sm-3">
+                            <button type="submit" class="btn btn-primary me-1">
+                                {{ t('save') }}
+                            </button>
+                            <button type="button" onclick="redirect('{{ back_url }}');" class="btn btn-danger">
+                                {{ t('back') }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}  
+<script src="{{ backend_asset_url('controllers/settings/slider.js') }}"></script>
+{% endblock %}

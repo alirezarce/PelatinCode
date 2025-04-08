@@ -1,0 +1,68 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+{% endblock %}
+{% block nav %}
+{% block body %}
+{% block seo %}
+<meta name="keywords" content="{{seo}}">
+{% endblock %}
+{% block description_seo %}
+<meta name="description" content="{{description_seo}}">
+{% endblock %}
+ <!-- Start Slider Area  -->
+ <div class="slider-area slider-style-1 variation-default height-850 bg_image bg_image--12" data-black-overlay="7" style="    background-image: url({{coach.big_img}}) !important">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="inner pt--80 text-center" data-sal="slide-up" data-sal-duration="400" data-sal-delay="150">
+                    <div>
+                        <h3 class="rn-sub-badge"><span class="theme-gradient">   {{coach.name}}</span></h3>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="rwt-split-area rn-section-gapTop">
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-lg-12 mb--40">
+                <div class="section-title text-center sal-animate" data-sal="slide-up" data-sal-duration="400" data-sal-delay="150">
+                    <h4 class="subtitle "><span class="theme-gradient"> مجموعه ورزشی سالک   </span></h4>
+                    <h2 class="title w-600 mb--20">   درباره استاد </h2>
+                </div>
+            </div>
+        </div>
+        <div class="rn-splite-style bg-color-blackest">
+            <div class="split-wrapper">
+                <div class="row g-0 radius-10 align-items-center">
+                    <div class="col-lg-12 col-xl-6 col-12 order-2 order-lg-1">
+                        <div class="split-inner">
+                            <h4 class="title sal-animate" data-sal="slide-up" data-sal-duration="400" data-sal-delay="200"> {{ coach.short_description}}  </h4>
+                            <p class="description sal-animate" data-sal="slide-up" data-sal-duration="400" data-sal-delay="300">
+
+                                {{ coach.long_description | safe }} 
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-xl-6 col-12 order-1 order-lg-2">
+                        <div class="thumbnail">
+                            <img src="{{coach.medium_img}}" alt="{{coach.name}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Advance Pricing Area  -->
+
+{% endblock %}
+
+
+{% endblock %}
+{% block js %}
+
+{% endblock %}

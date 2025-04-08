@@ -1,0 +1,280 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+{% endblock %}
+{% block navbar %}
+<div class="col-12">
+    <h2 class="float-start mb-0">
+        {{ title }}
+    </h2>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+
+                {% AlertDanger "err1" %}
+                    لطفا نام استاد  را وارد نمایید.
+                {% endAlertDanger %}  
+
+          
+           
+            {% AlertDanger "err6" %}
+                لطفا توضیحات کوتاه را وارد نمایید .
+            {% endAlertDanger %}  
+            {% AlertDanger "err7" %}
+                لطفا توضیحات کامل را وارد نمایید .
+            {% endAlertDanger %}  
+
+            {% AlertDanger "err9" %}
+                {{ t('category.validation_title_seo_required') }}
+            {% endAlertDanger %}  
+            {% AlertDanger "err8" %}
+                {{ t('category.validation_description_seo_required') }}
+            {% endAlertDanger %}  
+            {% AlertDanger "err10" %}
+                {{ t('validation_slug_required') }}
+            {% endAlertDanger %}  
+            {% AlertDanger "err11" %}
+                {{ t('validation_slug_invalid') | safe }}
+            {% endAlertDanger %}  
+
+            {% AlertDanger "-1" %}
+                نام استاد تکراری می باشد .
+            {% endAlertDanger %}  
+                
+            {% AlertDanger "-3" %}
+                slug تکراری می باشد .
+            {% endAlertDanger %}  
+
+
+            {% AlertDanger "csrf_token_invalid" %}
+                {{ t('csrf_token_invalid') }}
+            {% endAlertDanger %}  
+
+            {% AlertSuccess "ok" %}
+                {{ t('save_success') }}
+            {% endAlertSuccess %}                     
+
+            {% AlertDanger "0" %}
+                {{ t('save_error') }}
+            {% endAlertDanger %}  
+
+
+
+
+                <form class="form form-horizontal" id="form-edit" method="post" action="" enctype="multipart/form-data">
+                {{ csrf_token() }}
+                <div class="row">
+            
+            
+                    <div class="col-12">
+                        <div class="mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="name">
+                                    نام  :‌
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input dir="rtl" type="text" id="name" class="form-control" name="name" value="{{ row.name }}">
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="col-12">
+                        <div class="mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="short_description">
+                                    توضیحات کوتاه :
+                                    <span class="text-danger">*</span>‌
+                                </label>
+                            </div>
+                            <div class="col-sm-9">
+                                <textarea style="height:120px ;" id="short_description" class="form-control" name="short_description">{{ row.short_description }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="long_description">
+                                    توضیحات کامل :
+                                    <span class="text-danger">*</span>‌
+                                </label>
+                            </div>
+                            <div class="col-sm-9">
+                                <textarea style="height:120px;" id="long_description" class="form-control" name="long_description">{{ row.long_description }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="col-12">
+                        <div class="mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="sex">
+                                    جنسیت :
+                                </label>
+                            </div>
+                            <div class="col-sm-9">
+                                <select id="sex" class="form-control" name="sex">
+                                    <option value="1" {% if(row.sex == "1") %}selected{% endif %}>مرد</option>
+                                    <option value="0" {% if(row.sex == "0") %}selected{% endif %}>زن</option>
+                                </select>
+                            </div>
+                        </div>
+            
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="status">
+                                    وضعیت :
+                                </label>
+                            </div>
+                            <div class="col-sm-9">
+                                <select id="status" class="form-control" name="status">
+                                    <option value="1" {% if(row.status == "1") %}selected{% endif %}>{{ t('status_enable') }}</option>
+                                    <option value="0" {% if(row.status == "0") %}selected{% endif %}>{{ t('status_disabled') }}</option>
+                                </select>
+                            </div>
+                        </div>
+            
+                    </div>
+            
+                    <div class="col-12">
+                        <div class="mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="img">
+                                    تصویر کوچک :
+                                </label>
+                            </div>
+                            <div class="col-sm-9">
+                                {% if(row.img === '') %}
+                                <input dir="ltr" type="file" id="img" class="form-control" name="img">
+                                {% else %}
+                                {% set img_url = row.img %}
+                                <a href="{{ img_url }}" target="_blank">
+                                    <img src="{{ img_url }}" alt="file" class="round" style="width: 200px;height:100px;">
+                                </a>
+                                &nbsp;
+                                <button type="button" onclick="delete_img('{{row._id}}');" class="btn btn-danger">
+                                    {{ 'حذف تصویر'}}
+                                </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="big_img">
+                                    تصویر بزرگ :
+                                </label>
+                            </div>
+                            <div class="col-sm-9">
+                                {% if(row.big_img === '') %}
+                                <input dir="ltr" type="file" id="big_img" class="form-control" name="big_img">
+                                {% else %}
+                                {% set img_url = row.big_img %}
+                                <a href="{{ img_url }}" target="_blank">
+                                    <img src="{{ img_url }}" alt="file" class="round" style="width: 200px;height:100px;">
+                                </a>
+                                &nbsp;
+                                <button type="button" onclick="delete_big_img('{{row._id}}');" class="btn btn-danger">
+                                    {{ 'حذف تصویر'}}
+                                </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="medium_img">
+                                    تصویر متوسط :
+                                </label>
+                            </div>
+                            <div class="col-sm-9">
+                                {% if(row.medium_img === '') %}
+                                <input dir="ltr" type="file" id="medium_img" class="form-control" name="medium_img">
+                                {% else %}
+                                {% set img_url = row.medium_img %}
+                                <a href="{{ img_url }}" target="_blank">
+                                    <img src="{{ img_url }}" alt="file" class="round" style="width: 200px;height:100px;">
+                                </a>
+                                &nbsp;
+                                <button type="button" onclick="delete_medium_img('{{row._id}}');" class="btn btn-danger">
+                                    {{ 'حذف تصویر'}}
+                                </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="slug">
+                                    slug : 
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input dir="ltr" type="text" id="slug" class="form-control" name="slug" value="{{ row.slug }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="title_seo">
+                                    {{ t('title_seo') }} : 
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" id="title_seo" class="form-control" name="title_seo" value="{{ row.title_seo }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="description_seo">
+                                    {{ t('description_seo') }} : 
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-sm-9">
+                                <textarea style="height:120px ;" id="description_seo" class="form-control" name="description_seo">{{ row.description_seo }}</textarea>
+                            </div>
+                        </div>
+                    </div>                             
+                    <div class="col-sm-9 offset-sm-3">
+                        <button type="submit" class="btn btn-primary me-1">
+                            {{ t('save') }}
+                        </button>
+                        <button type="button" onclick="redirect('{{ backUrl }}');" class="btn btn-danger">
+                            {{ t('back') }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{{ backend_asset_url('ckeditor/ckeditor.js') }}"></script>
+<script src="{{ backend_asset_url('controllers/coach/edit.js') }}"></script>
+
+{% endblock %}

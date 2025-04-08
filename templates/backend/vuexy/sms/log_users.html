@@ -1,0 +1,152 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+    <link rel="stylesheet" href="{{ backend_asset_url('css/select2.min.css') }}">
+{% endblock %}
+{% block navbar %}
+<div class="col-12">
+    <h2 class="float-start mb-0">
+        {{ title }}
+    </h2>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+                {% AlertSuccess "status_changed" %}
+                    {{ t('status_changed') }}
+                {% endAlertSuccess %}                     
+
+                {% AlertSuccess "delete_success" %}
+                    {{ t('delete_success') }}
+                {% endAlertSuccess %}                     
+
+                {% AlertDanger "delete_error" %}
+                    {{ t('category.delete_error') }}
+                {% endAlertDanger %}  
+
+
+
+                <form class="form form-horizontal" method="get" action="">
+                    <div class="row">
+                       
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="title">
+                                        شماره تماس : 
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="title" class="form-control" name="title" value="{{ params.title }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9 offset-sm-3">
+                            <button type="submit" class="btn btn-primary me-1">
+                                {{ t('search') }}
+                            </button>
+                            <button type="button" onclick="redirect(BACKEND_URL+'onlineCourse/?');" class="btn btn-danger">
+                                {{ t('reset') }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">
+            
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+
+                {% if(pagination.totalRows == 0) %}
+                     <div class="text-center alert alert-warning">
+                        {{ t('rows_not_found') }}
+                     </div>
+                {% else %}
+                    {% renderPagination {'totalPage':pagination.totalPage,'url':url}  %}{% endRenderPagination %}
+
+                    <div class="table-responsive-fixed">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>
+                                        {% renderField {'title':'#','sort_field':'_id','url':url,'sortFields':sortFields} %} {% endRenderField %}
+                                    </th>
+                                    <th> {% renderField {'title':'عنوان ','sort_field':'name','url':url,'sortFields':sortFields} %} {% endRenderField %}</th>
+                                    <th> 
+                                        {% renderField {'title':' شماره تماس ','sort_field':'category_id','url':url,'sortFields':sortFields} %} {% endRenderField %}
+                                      </th>
+
+                                    <th> {% renderField {'title':t('تاریخ ارسال'),'sort_field':'last_edit_date_time','url':url,'sortFields':sortFields} %} {% endRenderField %}</th>
+                                    <th> {% renderField {'title':t('وضعیت ارسال'),'sort_field':'status','url':url,'sortFields':sortFields} %} {% endRenderField %}</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% set renderID = renderID(pagination.totalRows) %}
+                                {% set rowID  = renderID.n %}
+                                {% for row in pagination.rows %}
+                                    {% if(renderID.opt === '+') %}
+                                        {% set rowID  = rowID + 1  %}
+                                    {% else %}
+                                        {% set rowID  = rowID - 1  %}
+                                    {% endif %}
+                                <tr class="text-center">
+                                    <td>
+                                        {{ rowID }}
+                                    </td>
+                                    
+                                    <td>
+                                        
+                                    {{ row.message }} 
+
+                                    </td>
+                                    <td>
+                                    {{ row.mobile}}
+                                    </td>
+                                    <td>
+                                    <span dir="ltr">
+                                            {{ toJalaali(row.timestamp) }}
+                                    </span>
+                                    </td>
+                                    
+                                    <td>
+                                        {% if(row.status) %}
+                                        <span class="btn btn-success badge badge-light-success ms-50 waves-effect waves-float waves-light"> موفق </span>
+                                        {% else %}
+                                        <span class="btn btn-danger badge badge-light-danger ms-50 waves-effect waves-float waves-light">ناموفق</span>
+
+                                        {% endif %}
+                                    </td>
+                                    
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {% renderPagination {'totalPage':pagination.totalPage,'url':url}  %}{% endRenderPagination %}
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}  
+    <script src="{{ backend_asset_url('js/select2.min.js') }}"></script>
+{% endblock %}

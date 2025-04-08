@@ -1,0 +1,121 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+    <link rel="stylesheet" href="{{ backend_asset_url('css/select2.min.css') }}">
+{% endblock %}
+{% block navbar %}
+<div class="col-12">
+    <h2 class="float-start mb-0">
+        {{ title }}
+    </h2>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+               
+                {% AlertDanger "err1" %}
+                    لطفا نام کاربری را وارد نمایید.
+                {% endAlertDanger %}  
+
+                {% AlertDanger "csrf_token_invalid" %}
+                    {{ t('csrf_token_invalid') }}
+                {% endAlertDanger %}  
+
+                {% AlertSuccess "ok" %}
+                    {{ t('add_success') }}
+                {% endAlertSuccess %}                     
+
+                {% AlertDanger "error" %}
+                    {{ t('add_error') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "-1" %}
+                    نام  تکراری می باشد .
+                {% endAlertDanger %}  
+
+
+                <form class="form form-horizontal" id="form-add" method="post" action="" enctype="multipart/form-data">
+                    {{ csrf_token()  }}
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="user_name">
+                                        نام اتاق : 
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="name" class="form-control" name="name" value="{{ form_data.name }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="user_name">
+                                        عنوان  اتاق: 
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="title" class="form-control" name="title" value="{{ form_data.title }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="max_users">
+                                   بیشترین تعداد کاربر : 
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" dir="ltr" id="txt" class="form-control" name="max_users" value="{{ form_data.max_users }}">
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="status">
+                                        {{ t('وضعیت حساب کاربری') }} : 
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <select id="status" class="form-control" name="status">
+                                        <option value="1" {% if(form_data.status === "1") %}selected{% endif %}>{{ t('status_enable') }}</option>
+                                        <option value="0" {% if(form_data.status === "0") %}selected{% endif %}>{{ t('status_disabled') }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9 offset-sm-3">
+                            <button type="submit" class="btn btn-primary me-1">
+                                {{ t('add') }}
+                            </button>
+                            <button type="button" onclick="redirect(BACKEND_URL+'skyRoom/');" class="btn btn-danger">
+                                {{ t('back') }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}  
+<script src="{{ backend_asset_url('js/select2.min.js') }}"></script>
+<script src="{{ backend_asset_url('controllers/skyRoom/add.js') }}"></script>
+{% endblock %}

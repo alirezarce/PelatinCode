@@ -1,0 +1,318 @@
+<html lang="en">
+
+
+ <head>
+    <script>
+        FRONTEND_URL = '{{FRONTEND_URL}}';
+    </script>
+    {% for data in setting %}
+    <meta name="keywords" content="{{data.title_seo}}">
+    <meta name="description" content="{{data.description_seo}}">
+    {% endfor %}
+    <base href="{{FRONTEND_URL}}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block seo %}{% endblock %}
+    {% block description_seo %}{% endblock %}
+
+    {% for data in setting %}
+    <title>{{ data.title }}</title>
+    {% endfor %}
+    <!-- Favicon -->
+    {% for data in setting %}
+    <link rel="shortcut icon" type="image/x-icon" href="{{data.icon}}">
+    {% endfor %}
+    <!-- CSS ============================================ -->
+    <link rel="stylesheet" href="{{frontend_asset_url('css/vendor/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{frontend_asset_url('css/plugins/animation.css')}}">
+    <link rel="stylesheet" href="{{frontend_asset_url('css/plugins/feature.css')}}">
+    <link rel="stylesheet" href="{{frontend_asset_url('css/plugins/magnify.min.css')}}">
+    <link rel="stylesheet" href="{{frontend_asset_url('css/plugins/slick.css')}}">
+    <link rel="stylesheet" href="{{frontend_asset_url('css/plugins/slick-theme.css')}}">
+    <link rel="stylesheet" href="{{frontend_asset_url('css/plugins/lightbox.css')}}">
+    <link rel="stylesheet" href="{{frontend_asset_url('css/style.css')}}">
+    <link rel="stylesheet" href="{{frontend_asset_url('css/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ frontend_asset_url('css/toastr.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ backend_asset_url('css/fontawesome.min.css') }}">
+
+    {% block css %}{% endblock %}
+</head>
+
+{% if(user_info._id) %}
+<div class="modal fade" tabindex="-1" role="dialog" id="logoutModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">خروج</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>
+                آیا می خواهید خارج شوید ؟
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" onclick="location.href='user/logout/'" class="btn btn-success">
+                بله
+            </button>
+            <button type="button" class="btn btn-info" data-dismiss="modal">
+                خیر
+            </button>
+        </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<body class="active-dark-mode">
+    <main class="page-wrapper">       
+        <header class="rn-header header-default header-left-align header-transparent header-sticky">
+            <div class="container position-relative">
+                <div class="row align-items-center">
+                    <div class="col-lg-9 col-md-6 col-4 position-static">
+                        <div class="header-left d-flex">
+                            <div class="logo">
+                                <a href="{{ FRONTEND_URL }}">
+                                    {% for data in setting %}
+                                    <img class="logo-light" src="{{ data.logo }}" alt=" {{ data.title }} ">
+                                    <img class="logo-dark" src="{{ data.logo_dark}}" alt="  {{ data.title }}">
+                                    {% endfor %}
+                                </a>
+                            </div>
+                            <nav class="mainmenu-nav d-none d-lg-block">
+                                <ul class="mainmenu">
+                                    <li class="has-droupdown has-menu-child-item"><a href="{{ FRONTEND_URL }}">خانه </a>
+                                        
+                                    </li>
+                                
+                                    
+                                    <li class="has-droupdown has-menu-child-item"><a href="#" style="cursor: pointer;">دوره آفلاین </a>
+                                        <ul class="submenu">
+                                            {%  for Cat in allCategoryOfflineCourse  %}
+                                            <li><a href="offline-course-list/{{ Cat.slug  }}/"> {{  Cat.title }} </a></li>
+                                            {% endfor %}                                       
+                                         </ul>
+                                    </li>
+
+                                    <li class="has-droupdown has-menu-child-item"><a href="#" style="cursor: pointer;">دوره آنلاین </a>
+                                        <ul class="submenu">
+                                            {%  for Cat in allCategoryOnlineCourse  %}
+                                            <li><a href="online-course-list/{{ Cat.slug  }}/"> {{  Cat.title }} </a></li>
+                                            {% endfor %}                                       
+                                         </ul>
+                                    </li>
+                                    <li class="has-droupdown has-menu-child-item"><a href="face-to-face-course-list/" style="cursor: pointer;">دوره حضوری </a>
+                                        <ul class="submenu">
+                                            {%  for Cat in allCategoryFceToFaceCourse  %}
+                                            <li><a href="face-to-face-course-list/{{ Cat.slug  }}/"> {{  Cat.title }} </a></li>
+                                            {% endfor %}                                       
+                                         </ul>
+                                    </li>
+                                                                        
+                                    
+                                    <li><a href="coach-list/">  مربیان  </a></li>
+
+
+                                    <li><a href="page/about-us/">درباره ما </a></li>
+
+                                    <!-- <li class="has-droupdown has-menu-child-item"><a href="page/contact-us/" >  تماس باما </a></li> -->
+                                    {% if(user_info._id) %}
+                                    <li class="has-droupdown has-menu-child-item"><a style="cursor: pointer;">حساب کاربری</a>
+                                        <ul class="submenu">
+                                        <li>  <a class="dropdown-item" href="user/dashboard/">داشبورد</a>
+                                        </li>
+                                        <li>  <a class="dropdown-item" href="user/profile/">پروفایل</a>
+                                        </li>
+                                        <li>  
+                                            <a class="dropdown-item" href="javascript:logout();">خروج</a>                                        
+                                        </li>
+                                                                                
+                                         </ul>
+                                    </li>
+                                    {% endif %}
+                                  
+    
+                                </ul>
+
+
+
+
+
+
+
+                            </nav>
+                             
+                            
+                        </div>
+                        
+                    </div>
+
+                    
+                    <div class="col-lg-3 col-md-6 col-8">
+                        
+                        <div class="header-right">
+                           
+                          <!-- Start Header Btn  -->
+
+                          {% if(user_info._id) %}
+                          <div class="header-btn">                           
+                            <a class="btn-default btn-small round"  href="user/profile/">  خوش آمدید / {{user_info.fn}} </a>   
+                        </div>
+                          {%else%}
+                          <div class="header-btn">                           
+                            <a class="btn-default btn-small round"  href="user/login/"> ثبت نام / ورود  </a>   
+                        </div>
+                          {% endif %}
+                       
+                          <!-- End Header Btn  -->
+                            <!-- Start Mobile-Menu-Bar -->
+                            <div class="mobile-menu-bar ml--5 d-block d-lg-none">
+                                <div class="hamberger">
+                                    <button class="hamberger-button">
+                                        <i class="feather-menu"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Start Mobile-Menu-Bar -->
+
+                            <!-- Start Switcher Area  -->
+                            <div id="my_switcher" class="my_switcher">
+                                <ul>
+                                    <li>
+                                        <a href="javascript: void(0);" data-theme="light" class="setColor light">
+                                            <img class="sun-image" src="{{frontend_asset_url('images/icons/sun-01.svg')}}" alt="Sun images">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript: void(0);" data-theme="dark" class="setColor dark">
+                                            <img class="Victor Image" src="{{frontend_asset_url('images/icons/vector.svg')}}" alt="Vector Images">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Start Switcher Area  -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+         <!-- End Header Area  -->
+
+         <div class="popup-mobile-menu">
+            <div class="inner">
+                <div class="header-top">
+                    <div class="logo">
+                        <a href="{{FRONTEND_URL}}">
+                            {% for data in settings %}
+                                    <img class="logo-light" src="{{ data.logo }}" alt=" {{ data.title }} ">
+                                    <img class="logo-dark" src="{{ data.logo_dark}}" alt="  {{ data.title }}">
+                            {% endfor %}
+                        </a>
+                    </div>
+                    <div class="close-menu">
+                        <button class="close-button">
+                            <i class="feather-x"></i>
+                        </button>
+                    </div>
+                </div>
+                <ul class="mainmenu">
+                   
+                    {% if(user_info._id) %}
+                    <li class="has-droupdown has-menu-child-item"><a style="cursor: pointer;">حساب کاربری</a>
+                        <ul class="submenu">
+                        <li>  <a class="dropdown-item" href="user/dashboard/">داشبورد</a>
+                        </li>
+                        <li>  <a class="dropdown-item" href="user/profile/">پروفایل</a>
+                        </li>
+                        <li>  
+                            <a class="dropdown-item" href="javascript:logout();">خروج</a>                                        
+                        </li>
+                                                                
+                         </ul>
+                    </li>
+                    {% endif %}
+                    <li class="has-droupdown has-menu-child-item"><a  style="cursor: pointer;">دوره آفلاین </a>
+                        <ul class="submenu">
+                            {%  for Cat in allCategoryOfflineCourse  %}
+                                <li><a href="offline-course-list/{{ Cat.slug  }}/"> {{  Cat.title }} </a></li>
+                            {% endfor %}     
+                        </ul>
+                    </li>
+
+                    <li class="has-droupdown has-menu-child-item"><a style="cursor: pointer;">دوره آنلاین </a>
+                        <ul class="submenu">
+                            {%  for Cat in allCategoryOnlineCourse  %}
+                                <li><a href="online-course-list/{{ Cat.slug  }}/"> {{  Cat.title }} </a></li>
+                            {% endfor %}     
+                        </ul>
+                    </li>
+                    <li class="has-droupdown has-menu-child-item"><a style="cursor: pointer;">دوره حضوری </a>
+                        <ul class="submenu">
+                            {%  for Cat in allCategoryFceToFaceCourse  %}
+                                <li><a href="face-to-face-course-list/{{ Cat.slug  }}/"> {{  Cat.title }} </a></li>
+                            {% endfor %}     
+                        </ul>
+                    </li>
+                    <li><a href="coach-list/">  مربیان  </a></li>
+
+                    <li class="has-droupdown has-menu-child-item"><a style="cursor: pointer;">وبلاگ </a>
+                        <ul class="submenu">
+                            {%  for Cat in allCategoryBlog  %}
+                                <li><a href="blogs/{{ Cat.slug  }}/"> {{  Cat.title }} </a></li>
+                            {% endfor %}     
+                        </ul>
+                    </li>
+
+
+                    <li><a href="page/about-us/">درباره ما </a></li>
+
+
+                    <li class="has-droupdown has-menu-child-item"><a href="page/contact-us/">تماس با ما </a></li>
+                </ul>
+
+
+
+
+
+
+
+            </div>
+        </div>
+
+        {% block body %}{% endblock %}
+        {% include '../layout/footer.html' %}
+        <script src="{{frontend_asset_url('js/vendor/modernizr.min.js')}}"></script>
+        <script src="{{frontend_asset_url('js/vendor/jquery.min.js')}}"></script>
+        <script src="{{frontend_asset_url('js/vendor/bootstrap.min.js')}}"></script>
+        <script src="{{frontend_asset_url('js/vendor/popper.min.js')}}"></script>
+        <script src="{{frontend_asset_url('js/vendor/waypoint.min.js')}}"></script>
+        <script src="{{frontend_asset_url('js/vendor/wow.min.js')}}"></script>
+        <script src="{{frontend_asset_url('js/vendor/counterup.min.js')}}"></script>
+        <script src="{{frontend_asset_url('js/vendor/feather.min.js')}}"></script>
+        <script src="{{frontend_asset_url('js/vendor/sal.min.js')}}"></script>
+        <script src="{{frontend_asset_url('js/vendor/masonry.js')}}"></script>
+        <script src="{{frontend_asset_url('js/vendor/imageloaded.js')}}"></script>
+        <script src="{{frontend_asset_url('js/vendor/magnify.min.js')}}"></script>
+        <script src="{{frontend_asset_url('js/vendor/lightbox.js')}}"></script>
+        <script src="{{frontend_asset_url('js/vendor/slick.min.js')}}"></script>
+        <script src="{{frontend_asset_url('js/vendor/easypie.js')}}"></script>
+        <script src="{{frontend_asset_url('js/vendor/text-type.js')}}"></script>
+        <script src="{{frontend_asset_url('js/vendor/jquery.style.swicher.js')}}"></script>
+        <script src="{{frontend_asset_url('js/vendor/js.cookie.js')}}"></script>
+        <script src="{{ frontend_asset_url('js/sweetalert2.min.js')}}"></script>  
+        <!-- Main JS -->
+        <script src="{{frontend_asset_url('js/main.js')}}"></script>
+        <script src="{{ frontend_asset_url('controllers/layout/base.js') }}"></script>
+        <script type="text/javascript">
+            ["keydown","touchmove","touchstart","mouseover"].forEach(function(v){window.addEventListener(v,function(){if(!window.isGoftinoAdded){window.isGoftinoAdded=1;var i="QBj1LF",d=document,g=d.createElement("script"),s="https://www.goftino.com/widget/"+i,l=localStorage.getItem("goftino_"+i);g.type="text/javascript",g.async=!0,g.src=l?s+"?o="+l:s;d.getElementsByTagName("head")[0].appendChild(g);}})});
+          </script>
+        
+        {% block js %}
+        {% endblock %}
+</main>
+</body>
+</html>

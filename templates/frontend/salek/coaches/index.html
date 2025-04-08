@@ -1,0 +1,51 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+
+{% endblock %}
+{% block nav %}
+
+
+{% block body %}
+ <!-- Start Blog List View  -->
+ <div class="rwt-team-area rn-section-gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title text-center sal-animate" data-sal="slide-up" data-sal-duration="700" data-sal-delay="100">
+                    <h4 class="subtitle "><span class="theme-gradient">  مربیان ما </span></h4>
+                    <h2 class="title w-600 mb--20"> اساتید مجموعه سالک </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row row--15">
+
+            {%  for Coach in getAllCoach  %}
+
+            <div class="col-lg-4 col-md-6 col-12 mt--10 sal-animate" data-sal="slide-up" data-sal-duration="700">
+                <div class="rn-team team-style-default style-two">
+                    <div class="inner">
+                        <div class="inner">
+                            <div class="thumbnail">
+                                <img src="{{Coach.img}}" alt="{{Coach.name}}">
+                            </div>
+                            <div class="content">
+                                <h2 class="title">  {{Coach.name}} </h2>
+                                <h6 class="subtitle theme-gradient">  {{Coach.name}} </h6>
+                                <p class="description"> {{Coach.short_description}}</p>
+                                {% set link = 'coach/' + Coach.slug  %}
+                                <div class="team-form"><a href="{{link}}">مشخصات</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}          
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% endblock %}
+{% block js %}
+
+{% endblock %}

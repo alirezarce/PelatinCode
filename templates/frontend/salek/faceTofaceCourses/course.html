@@ -1,0 +1,89 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+{% endblock %}
+{% block nav %}
+
+
+{% block body %}
+
+{% block seo %}
+<meta name="keywords" content="{{seo}}">
+{% endblock %}
+
+{% block description_seo %}
+<meta name="description" content="{{description_seo}}">
+{% endblock %}
+<div class="rn-blog-details-area">
+    <div class="post-page-banner rn-section-gapTop">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="content text-center">
+                        <div class="page-title" style="padding-top: 50px;">
+                            <h1 class="theme-gradient"> {{course.title}}</h1>
+                            {% if(user_info._id) %}
+                            <div class="button-group">
+                                <form action="/order/creat/{{course.slug}}" method="post">
+                                <input type="hidden" name="type" id="type" value="3" >
+                                <input type="hidden" name="course_id" id="course_id" value="{{ course._id}} ">
+                                <button name="submit" type="submit" name="btn_save" id="submit" class="btn-default btn-large rn-btn">
+                                    <span> خرید دوره  </span>
+                                </button>                                
+                            </form>
+                            </div>
+                            {%else%}
+                            <h4 class="subtitle">
+                                <span class="theme-gradient">   برای استفاده از خدمات مجموعه لطفا ثبت نام کنید  </span>
+                            </h4>
+                            <a class="btn-default btn-small" href="user/register">  ثبت نام  </a>
+                            {% endif %}
+                        </div>
+
+
+                        <div class="page-title" style="padding-top: 21px;"> 
+                            <span class="theme-gradient">
+                                {{number_format(course.price)}} تومان
+                            </span>
+    
+                        </div>
+                        <ul class="rn-meta-list">
+                           
+                            <li>
+                                {{ course.short_description}} 
+
+                            
+                               
+                            </li>
+                        </ul>
+                        <div class="thumbnail alignwide mt--60"><img class="w-100 radius" src="{{course.medium_img}}" alt="{{course.title}}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="blog-details-content pt--60 rn-section-gapBottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="content">
+
+                        {{ course.long_description | safe }} 
+
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Advance Pricing Area  -->
+
+{% endblock %}
+
+
+{% endblock %}
+{% block js %}
+<script src="{{ frontend_asset_url('controllers/face_to_face_course/course.js') }}"></script>
+
+{% endblock %}

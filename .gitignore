@@ -1,0 +1,13 @@
+node_modules/*
+/package-lock.json
+*.DS_Store
+yarn.lock
+.vscode/*
+media/*
+.env
+.todo
+services/workers/worket-thread/node_modules/*
+services/workers/worket-thread/clusters/node_modules/*
+Cron-Sms/node_modules*
+Cron-sms/package-lock.json
+.env

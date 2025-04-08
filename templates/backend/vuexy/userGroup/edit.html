@@ -1,0 +1,146 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+    <link rel="stylesheet" href="{{ backend_asset_url('css/select2.min.css') }}">
+{% endblock %}
+{% block navbar %}
+<div class="col-12">
+    <h2 class="float-start mb-0">
+        {{ title }}
+    </h2>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+               
+                {% AlertDanger "err1" %}
+                    {{ t('category.validation_parent_id_required') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err2" %}
+                    {{ t('category.validation_title_required') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err3" %}
+                    {{ t('category.validation_title_seo_required') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err4" %}
+                    {{ t('category.validation_description_seo_required') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err5" %}
+                    {{ t('validation_slug_required') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err6" %}
+                    {{ t('validation_slug_invalid') | safe }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err7" %}
+                لطفا توضیحات را وارد نمایید.
+                {% endAlertDanger %}  
+                {% AlertDanger "no-logo" %}
+                    لطفا تصویر را انتخاب نمایید.
+                {% endAlertDanger %}  
+
+
+                {% AlertDanger "parent_id_invalid" %}
+                    {{ t('category.parent_id_invalid') }}
+                {% endAlertDanger %}  
+
+                {% AlertDanger "-2" %}
+                    {{ t('slug_is_already') }}
+                {% endAlertDanger %}  
+
+
+                {% AlertDanger "-3" %}
+                    {{ t('category.title_is_alreday') }}
+                {% endAlertDanger %}  
+
+                {% AlertDanger "csrf_token_invalid" %}
+                    {{ t('csrf_token_invalid') }}
+                {% endAlertDanger %}  
+
+                {% AlertSuccess "ok" %}
+                    {{ t('save_success') }}
+                {% endAlertSuccess %}                     
+
+                {% AlertDanger "0" %}
+                    {{ t('save_error') }}
+                {% endAlertDanger %}  
+
+                {% AlertDanger "-1" %}
+                    {{ t('save_error') }}
+                {% endAlertDanger %}  
+
+
+                <form class="form form-horizontal" id="form-edit" method="post" action="" enctype="multipart/form-data">
+                    {{ csrf_token()  }}
+                    <div class="row">
+                        
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="title">
+                                        عنوان گروه  : 
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="title" class="form-control" name="title" value="{{ row.title }}">
+                                </div>
+                            </div>
+                        </div>
+                     
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="description">
+                                        توضیحات : 
+                                      
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <textarea style="height:120px ;" id="description" class="form-control" name="description">{{ row.description }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="status">
+                                        {{ t('status') }} : 
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <select id="status" class="form-control" name="status">
+                                        <option value="1" {% if(row.status == true) %}selected{% endif %}>{{ t('status_enable') }}</option>
+                                        <option value="0" {% if(row.status == false) %}selected{% endif %}>{{ t('status_disabled') }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-9 offset-sm-3">
+                            <button type="submit" class="btn btn-primary me-1">
+                                {{ t('save') }}
+                            </button>
+                            <button type="button" onclick="redirect('{{ back_url }}');" class="btn btn-danger">
+                                {{ t('back') }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}  
+<script src="{{ backend_asset_url('js/select2.min.js') }}"></script>
+<script src="{{ backend_asset_url('controllers/userGroup/edit.js') }}"></script>
+{% endblock %}

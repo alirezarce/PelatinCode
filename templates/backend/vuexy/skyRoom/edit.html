@@ -1,0 +1,109 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+    <link rel="stylesheet" href="{{ backend_asset_url('css/select2.min.css') }}">
+{% endblock %}
+{% block navbar %}
+<div class="col-12">
+    <h2 class="float-start mb-0">
+        {{ title }}
+    </h2>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+               
+                {% AlertDanger "err1" %}
+                    لطفا نام کاربری را وارد نمایید.
+                {% endAlertDanger %}  
+
+                {% AlertDanger "-1" %}
+                    نام  کاربری تکراری می باشد .
+                {% endAlertDanger %}  
+
+                {% AlertDanger "csrf_token_invalid" %}
+                    {{ t('csrf_token_invalid') }}
+                {% endAlertDanger %}  
+
+                {% AlertSuccess "ok" %}
+                    {{ t('add_success') }}
+                {% endAlertSuccess %}                     
+
+                {% AlertDanger "error" %}
+                    {{ t('add_error') }}
+                {% endAlertDanger %}  
+
+
+                <form class="form form-horizontal" id="form-edit" method="post" action="" enctype="multipart/form-data">
+                    {{ csrf_token()  }}
+                    <div class="row">
+                       
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="user_name">
+                                        نام کاربری : 
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="user_name" class="form-control" name="user_name" value="{{ row.user_name }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="password">
+                                    رمز عبور  : 
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" dir="ltr" id="password" class="form-control" name="password" value="{{ row.password }}">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="status">
+                                        {{ t('وضعیت حساب کاربری') }} : 
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <select id="status" class="form-control" name="status">
+                                        <option value="1" {% if(row.status == true) %}selected{% endif %}>{{ t('status_enable') }}</option>
+                                        <option value="0" {% if(row.status == false) %}selected{% endif %}>{{ t('status_disabled') }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9 offset-sm-3">
+                            <button type="submit" class="btn btn-primary me-1">
+                                {{ t('save') }}
+                            </button>
+                            <button type="button" onclick="redirect(BACKEND_URL+'skyRoom/');" class="btn btn-danger">
+                                {{ t('back') }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}  
+<script src="{{ backend_asset_url('js/select2.min.js') }}"></script>
+<script src="{{ backend_asset_url('controllers/skyRoom/edit.js') }}"></script>
+{% endblock %}

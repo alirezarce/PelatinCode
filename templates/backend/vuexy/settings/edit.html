@@ -1,0 +1,300 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+{% endblock %}
+{% block navbar %}
+<div class="col-12">
+    <h2 class="float-start mb-0">
+        {{ title }}
+    </h2>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+               
+                {% AlertDanger "err1" %}
+                    {{ t('category.validation_title_seo_required') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err2" %}
+                    {{ t('category.validation_description_seo_required') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err3" %}
+                    لطفا متن صفحه را وارد نمایید.
+                {% endAlertDanger %}  
+                {% AlertDanger "csrf_token_invalid" %}
+                    {{ t('csrf_token_invalid') }}
+                {% endAlertDanger %}  
+
+                {% AlertSuccess "ok" %}
+                    {{ t('save_success') }}
+                {% endAlertSuccess %}                     
+
+                {% AlertDanger "0" %}
+                    {{ t('save_error') }}
+                {% endAlertDanger %}  
+
+                <form class="form form-horizontal" id="form-edit" method="post" action="" enctype="multipart/form-data">
+                    {{ csrf_token()  }}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="title">
+                                        عنوان  :‌
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="title" name="title" class="form-control"  value="{{ row.title }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="mobile">
+                                         شماره تماس  :‌
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input dir="ltr" type="text"id="mobile" class="form-control"  name="mobile"  value="{{ row.mobile }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="phone">
+                                         شماره تلفن  :‌
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input dir="ltr" type="text" id="phone" class="form-control" name="phone"  value="{{ row.phone }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="email">
+                                          ایمیل  :‌
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input dir="ltr" type="text" id="email" class="form-control"  name="email" value="{{ row.email }}">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="link_instagram">
+                                        لینک اینستاگرام  :‌
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input dir="ltr" type="text" id="link_instagram" class="form-control"  name="link_instagram" value="{{ row.link_instagram }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="link_telegram">
+                                        لینک تلگرام  :‌
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input dir="ltr" type="text" id="link_telegram" class="form-control" name="link_telegram" value="{{ row.link_telegram }}">
+                                </div>
+                            </div>
+                        </div>
+                        
+                       
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="link_linkdin">
+                                       2 لینک اینستاگرام  :
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input dir="ltr" type="text" id="link_linkdin" class="form-control"  name="link_linkdin" value="{{ row.link_linkdin }}">
+                                </div>
+                            </div>
+                        </div>
+
+                     
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="footer_content">
+                                         آدرس  : 
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <textarea style="height:120px;" id="address" class="form-control" name="address">{{ row.address }}</textarea>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="icon">
+                                        تصویر favicon :
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    {% if(row.icon === '') %}
+                                    <input dir="ltr" type="file" id="icon" class="form-control" name="icon">
+                                    {% else %}
+                                    {% set img_url = row.icon %}
+                                    <a href="{{ img_url }}" target="_blank">
+                                        <img src="{{ img_url }}" alt="file" class="round" style="width: 200px;height:100px;">
+                                    </a>
+                                    &nbsp;
+                                    <button type="button" onclick="delete_icon('{{row._id}}');" class="btn btn-danger">
+                                        {{ 'حذف تصویر'}}
+                                    </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="logo">
+                                          لوگو روشن :
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    {% if(row.logo === '') %}
+                                    <input dir="ltr" type="file" id="logo" class="form-control" name="logo">
+                                    {% else %}
+                                    {% set img_url = row.logo %}
+                                    <a href="{{ img_url }}" target="_blank">
+                                        <img src="{{ img_url }}" alt="file" class="round" style="width: 200px;height:100px;">
+                                    </a>
+                                    &nbsp;
+                                    <button type="button" onclick="delete_logo_light('{{row._id}}');" class="btn btn-danger">
+                                        {{ 'حذف تصویر'}}
+                                    </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="logo_dark">
+                                        لوگو تاریک  :
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    {% if(row.logo_dark === '') %}
+                                    <input dir="ltr" type="file" id="logo_dark" class="form-control" name="logo_dark">
+                                    {% else %}
+                                    {% set img_url = row.logo_dark %}
+                                    <a href="{{ img_url }}" target="_blank">
+                                        <img src="{{ img_url }}" alt="file" class="round" style="width: 200px;height:100px;">
+                                    </a>
+                                    &nbsp;
+                                    <button type="button" onclick="delete_logo_dark('{{row._id}}');" class="btn btn-danger">
+                                        {{ 'حذف تصویر'}}
+                                    </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                       
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="title_seo">
+                                        {{ t('title_seo') }} : 
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="title_seo" class="form-control" name="title_seo" value="{{ row.title_seo }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="description_seo">
+                                        {{ t('description_seo') }} : 
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <textarea style="height:120px ;" id="description_seo" class="form-control" name="description_seo">{{ row.description_seo }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="content_birth">
+                                          متن پیام  تبریک تولد:
+                                        ‌
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <textarea style="height:120px ;" id="content_birth" class="form-control" name="content_birth" autocomplete="off">{{row.content_birth}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="content">
+                                         الگو :
+                                        ‌
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <b>%mobile%</b> <br>
+                                    <b>%firstname%</b> <br>
+                                    <b>%lastname%</b> <br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9 offset-sm-3">
+                            <button type="submit" class="btn btn-primary me-1">
+                                {{ t('save') }}
+                            </button>
+                            <button type="button" onclick="redirect('/admin');" class="btn btn-danger">
+                                {{ t('back') }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}  
+<script src="{{ backend_asset_url('controllers/settings/edit.js') }}"></script>
+
+{% endblock %}

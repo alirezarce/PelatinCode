@@ -1,0 +1,252 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+    <link rel="stylesheet" href="{{ backend_asset_url('css/select2.min.css') }}">
+{% endblock %}
+{% block navbar %}
+<div class="col-12">
+    <h2 class="float-start mb-0">
+        {{ title }}
+    </h2>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+               
+                {% AlertDanger "err1" %}
+                    لطفا عنوان  را وارد نمایید.
+                {% endAlertDanger %}  
+
+                {% AlertDanger "err3" %}
+                    لطفا دسته بندی  را انتخاب نمایید.
+                {% endAlertDanger %}  
+                
+                {% AlertDanger "err6" %}
+                    لطفا توضیحات کوتاه را وارد نمایید .
+                {% endAlertDanger %}  
+                {% AlertDanger "err7" %}
+                    لطفا توضیحات کامل را وارد نمایید .
+                {% endAlertDanger %}  
+
+                {% AlertDanger "err9" %}
+                    {{ t('category.validation_title_seo_required') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err8" %}
+                    {{ t('category.validation_description_seo_required') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err10" %}
+                    {{ t('validation_slug_required') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err11" %}
+                    {{ t('validation_slug_invalid') | safe }}
+                {% endAlertDanger %}  
+
+                {% AlertDanger "-1" %}
+                عنوان  تکراری می باشد .
+                {% endAlertDanger %}  
+                
+                {% AlertDanger "-3" %}
+                    slug تکراری می باشد .
+                {% endAlertDanger %}  
+
+
+                {% AlertDanger "csrf_token_invalid" %}
+                    {{ t('csrf_token_invalid') }}
+                {% endAlertDanger %}  
+
+                {% AlertSuccess "ok" %}
+                    {{ t('add_success') }}
+                {% endAlertSuccess %}                     
+
+                {% AlertDanger "error" %}
+                    {{ t('add_error') }}
+                {% endAlertDanger %}  
+
+
+                    <form class="form form-horizontal" id="form-add" method="post" action="" enctype="multipart/form-data">
+                        {{ csrf_token() }}
+                        <div class="row">
+                    
+                    
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label" for="title">
+                                            عنوان حضوری :‌
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input dir="rtl" type="text" id="title" class="form-control" name="title" value="{{ form_data.title }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label" for="category_id">
+                                            دسته بندی حضوری :
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <select id="category_id" class="form-control" name="category_id">
+                                            <option value="" {% if(form_data.category_id==="" ) %}selected{% endif %}>----</option>
+                                            {% for cat in categories %}
+                                            <option value="{{ cat._id }}" {% if(form_data.category_id==cat._id ) %}selected{% endif %}>
+                                                {{ cat.title }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                    
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label" for="short_description">
+                                            توضیحات کوتاه :
+                                            <span class="text-danger">*</span>‌
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <textarea style="height:120px ;" id="short_description" class="form-control" name="short_description">{{ form_data.short_description }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label" for="long_description">
+                                            توضیحات کامل :
+                                            <span class="text-danger">*</span>‌
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <textarea style="height:120px;" id="long_description" class="form-control" name="long_description">{{ form_data.long_description }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label" for="price">
+                                            هزینه دوره :
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input dir="ltr" type="text" id="price" class="form-control" name="price" value="{{ form_data.price }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label" for="status">
+                                            وضعیت :
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <select id="status" class="form-control" name="status">
+                                            <option value="1" {% if(form_data.status === "1") %}selected{% endif %}>{{ t('status_enable') }}</option>
+                                            <option value="0" {% if(form_data.status === "0") %}selected{% endif %}>{{ t('status_disabled') }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                    
+                            </div>
+                    
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label" for="img">
+                                            تصویر کوچک :
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input dir="ltr" type="file" id="img" class="form-control" name="img" value="{{ form_data.img }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label" for="medium_img">
+                                            تصویر متوسط :
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input dir="ltr" type="file" id="medium_img" class="form-control" name="medium_img" value="{{ form_data.medium_img }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label" for="slug">
+                                            slug : 
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input dir="ltr" type="text" id="slug" class="form-control" name="slug" value="{{ form_data.slug }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label" for="title_seo">
+                                            {{ t('title_seo') }} : 
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="title_seo" class="form-control" name="title_seo" value="{{ form_data.title_seo }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label" for="description_seo">
+                                            {{ t('description_seo') }} : 
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <textarea style="height:120px ;" id="description_seo" class="form-control" name="description_seo">{{ form_data.description_seo }}</textarea>
+                                    </div>
+                                </div>
+                            </div>                
+                            <div class="col-sm-9 offset-sm-3">
+                                <button type="submit" class="btn btn-primary me-1">
+                                    {{ t('add') }}
+                                </button>
+                                <button type="button" onclick="redirect(BACKEND_URL+'blog/');" class="btn btn-danger">
+                                    {{ t('back') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}  
+<script src="{{ backend_asset_url('js/select2.min.js') }}"></script>
+<script src="{{ backend_asset_url('ckeditor/ckeditor.js') }}"></script>
+<script src="{{ backend_asset_url('controllers/blog/add.js') }}"></script>
+{% endblock %}

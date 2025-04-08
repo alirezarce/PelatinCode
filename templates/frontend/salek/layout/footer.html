@@ -1,0 +1,71 @@
+<footer class="rn-footer footer-style-default variation-two">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-6 col-sm-6 col-12">
+                    <div class="rn-footer-widget">
+                        <h4 class="title">نماد الکترونیک  </h4>
+                        <div class="inner">
+                            <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=569818&Code=RgPI1BipFiB7zs8AG8UMb6YkjIIgc6Ch'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=569818&Code=RgPI1BipFiB7zs8AG8UMb6YkjIIgc6Ch' alt='' style='cursor:pointer' code='RgPI1BipFiB7zs8AG8UMb6YkjIIgc6Ch'></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-6 col-12">
+                    <div class="rn-footer-widget">
+                        <h4 class="title"> 
+                            <a href="page/contact-us/">تماس باما</a>
+                        </h4>
+                        <div class="inner">
+                            <ul class="footer-link link-hover">
+                                {% for data in setting %}
+                                <li>{{data.address}}</li>
+                                <li>{{data.phone}}</li>
+                                <li>{{data.mobile}}</li>
+                                <li>{{data.email}}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="rn-footer-widget">
+                        <h4 class="title">با ما بمان </h4>
+                        <div class="inner">
+                            <h6 class="subtitle"> شبکه های اجتماعی مجموعه ورزشی سالک </h6>
+                            <ul class="social-icon social-default justify-content-start">
+                                {% for data in setting %}
+
+                                <li><a href="https://t.me/Salek_sport">
+                                    <i class="fa-brands fa-telegram" style="padding-top: 15px;"></i>
+                                    </a>
+                                </li>
+                                <li><a href="{{data.link_instagram}}">
+                                    <i class="fa-brands fa-instagram" style="padding-top: 15px;"></i>                           
+                                    </a>
+                                </li>
+                                <li><a href="{{data.link_linkdin}}">
+                                    <i class="fa-brands fa-instagram" style="padding-top: 15px;"></i>                           
+                                    </a>
+                                </li>
+                                <li><a href="https://www.youtube.com/@mehdisalek">
+                                    <i class="fa-brands fa-youtube" style="padding-top: 15px;"></i>
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="rn-footer-widget">
+                        <h4 class="title"> موقعیت ما  </h4>
+                        <div >
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3236.4278534247333!2d51.41404937534971!3d35.78942832402349!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8e06bf3cdf9ee9%3A0x2278522d4839bf66!2sSalek%20Gym!5e0!3m2!1sen!2s!4v1690784447720!5m2!1sen!2s" width="500" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" data-rocket-lazyload="fitvidscompatible" data-lazy-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3236.4278534247333!2d51.41404937534971!3d35.78942832402349!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8e06bf3cdf9ee9%3A0x2278522d4839bf66!2sSalek%20Gym!5e0!3m2!1sen!2s!4v1690784447720!5m2!1sen!2s" data-ll-status="loaded" class="entered lazyloaded"></iframe>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,89 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+
+{% endblock %}
+{% block nav %}
+{% endblock %}
+
+
+{% block body %}
+<title>{{ title }}</title>
+
+        <!-- Start Breadcarumb area  -->
+        <div class="breadcrumb-area breadcarumb-style-1 ptb--120">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumb-inner text-center">
+                            <h1 class="title theme-gradient h2"> {{title}} </h1>
+                            <ul class="page-list">
+                                <li class="rn-breadcrumb-item"><a href="{{FRONTEND_URL}}">خانه </a></li>
+                                <li class="rn-breadcrumb-item active">دوره های حضوری</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Breadcarumb area  -->
+        <!-- Start Theme Style  -->
+        <div>
+            <div class="rn-gradient-circle"></div>
+            <div class="rn-gradient-circle theme-pink"></div>
+        </div>
+        <!-- End Theme Style  -->
+       
+
+
+                <!-- Start Rn Blog Area  -->
+                <div class="main-content">
+                    <div class="rn-blog-area rn-section-gap">
+                        <div class="container">
+                            <div class="row mt_dec--30">
+                                <div class="col-lg-12">
+                                    <div class="row row--15">
+                                        {%  for Course in resultPagination.rows  %}
+                                        <div class="col-lg-4 col-md-6 col-12 mt--30" data-sal="slide-up" data-sal-duration="700">
+                                            <div class="rn-card box-card-style-default">
+                                                <div class="inner">
+                                                    {% set link = 'face-to-face-course-details/' + Course.slug  %}
+                                                    <div class="thumbnail"><a class="image" href="{{link}}"><img class="w-100" src="{{Course.img}}" alt="{{Course.title}}"></a>
+                                                    </div>
+                                                    <div class="content">
+                                                        <ul class="rn-meta-list">
+                                                            <!-- <li><a href="archive/irin-pervin.html"> ایرین پروین </a></li> -->
+                                                            <!-- <li class="separator">/</li> -->
+                                                            <li>
+                                                                {%if(Course.price)%}
+                                                                {{number_format(Course.price)}} تومان
+                                                                {%else%}
+                                                                رایگان
+                                                                {%endif%}
+                                                            </li>
+                                                        </ul>
+                                                        <h4 class="title"><a href="{{link}}">
+                                                            {{Course.short_description}}
+                                                        </a></h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                
+                                    </div>
+                                   
+                                </div>
+                                <div class="col-lg-12 text-center">
+                                    {% renderPaginationFront {'totalPage':resultPagination.totalPage,'url':url}  %}{% endRenderPaginationFront %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Rn Blog Area  -->
+
+{% endblock %}
+{% block js %}
+
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+<!-- BEGIN: Vendor CSS-->
+<link rel="stylesheet" href="{{ backend_asset_url('css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ backend_asset_url('css/plugins/charts/chart-apex.css') }}">
+<link rel="stylesheet" href="{{ backend_asset_url('vendors/css/vendors-rtl.min.css') }}">
+<link rel="stylesheet" href="{{ backend_asset_url('vendors/css/charts/apexcharts.css') }}">
+
+
+
+{% endblock %}
+{% block navbar %}
+<div class="col-12">
+</div>
+{% endblock %}
+
+{% block body %}
+
+
+<div class="col-12">
+    <h1 class="text-center">نمودار کلی مجموعه </h1>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="myChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-12">
+    <h1 class="text-center">نمودار درآمدی مجموعه </h1>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="myChart3" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-xl-6 col-12">
+    <h1 class="text-center">نمودار مجموعه سالک</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="myChart2" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+   var countUsers=`{{allUsers}}`;
+   var countActiveUsers=`{{activeUsers}}`;
+   var allOrder=`{{allOrder}}`;
+   var totalPirce=`{{totalPrice}}`;
+   var totalPirceMonth=`{% for x, y,z in getTotalPriceByMonth %}
+  Point: {{ x }}, {{ y }}, {{ z }}
+{% endfor %}`;
+console.log(totalPirceMonth);
+
+   
+   const monthNames = [
+  "", "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+];
+
+const labels = totalPirceMonth.map(item => {
+  const month = monthNames[item._id.month];
+  const year = item._id.year;
+  return `${month} ${year}`; // Example: "Jan 2025"
+});
+
+const data = totalPirceMonth.map(item => item.monthlyIncome);
+console.log(data);
+</script>
+
+    <script src="{{ backend_asset_url('js/scripts/charts/chart.js') }}"></script>
+
+    <script src="{{ backend_asset_url('controllers/home/home.js') }}"></script>
+
+
+
+{% endblock %}

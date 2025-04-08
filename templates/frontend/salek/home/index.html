@@ -1,0 +1,491 @@
+        
+        {% extends "../layout/base.html" %}
+        {% block css %}
+        <link rel="stylesheet" href="{{frontend_asset_url('css/video-js.css')}}">
+
+        {% endblock %}
+        {% block nav %}
+        {% endblock %}
+
+        {% block seo %}
+        <meta name="keywords" content="{{seo}}">
+        {% endblock %}
+        description_seo
+        {% block description_seo %}
+        <meta name="description" content="{{description_seo}}">
+        {% endblock %}
+
+
+    {% block body %}
+        <!-- Start Theme Style  -->
+        <div>
+            <div class="rn-gradient-circle"></div>
+            <div class="rn-gradient-circle theme-pink"></div>
+        </div>
+        <!-- End Theme Style  -->
+
+
+
+        <!-- Start Seperator Area  -->
+        <div class="rbt-separator-mid">
+            <div class="container">
+                <hr class="rbt-separator m-0">
+            </div>
+        </div>
+        <!-- End Seperator Area  -->
+
+        <!-- Start Slider Area  -->
+        <div class="slider-area slider-activation slider-style-4 slider-dot rn-slick-dot rn-slick-arrow">
+
+            {%  for Slider in sliders  %}
+            <!-- Start Single Slider  -->
+            <div class="height-850 bg_image bg_image--7 d-flex align-items-center" data-black-overlay="5" style="    background-image: url({{Slider.img}}) !important">
+                <div class="container">
+                    <div class="row row--30 align-items-center">
+                        <div class="col-12">
+                            <div class="inner text-center">
+                                <h1 class="title"> {{Slider.title}} </h1>
+                                <p class="description">{{Slider.content}} </p>
+                                <!-- <div   class="button-group mt--30">
+                                    <a class="btn-default" href="{{Slider.link}}"> مشاهده </a>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Single Slider  -->
+            {% endfor %}     
+
+
+        </div>
+        <!-- End Slider Area  -->
+
+        <!-- Start Service-5 Area  -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title text-center" data-sal="slide-up" data-sal-duration="700" data-sal-delay="100">
+                    <h4 class="subtitle "><span class="theme-gradient">   مجموعه ورزشی سالک  </span></h4>
+                    <h2 class="title w-600 mb--20"> خدمات</h2>
+                </div>
+            </div>
+        </div>
+        <div class="rn-service-area rn-section-gap">
+            <div class="container">
+                <div class="row row--15 service-wrapper mt_dec--30">
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12" data-sal="slide-up" data-sal-duration="700">
+                        <div class="service service__style--1 icon-circle-style text-center">
+                            <div class="icon" >
+                                <!-- <i  style=" background-image: url{{frontend_asset_url('images/salek-icon/caffe.ico')}})"></i> -->
+                                 <img src="{{frontend_asset_url('images/salek-icon/caffe.ico')}}" alt="کافه سلامت">
+                            </div>
+                            <div class="content">
+                                <h4 class="title w-600"> کافه سلامت </h4>
+                                <p class="description b1 color-gray mb--0" style="text-align: justify;">کافه سلامت، فضا و فرصتی است که می‌خواهد به سلامت شما بپردازد وهمچنین می‌خواهیم در کنار شما و برای شما لحظه‌های زیباتری بسازیم..</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12" data-sal="slide-up" data-sal-duration="700" data-sal-delay="100">
+                        <div class="service service__style--1 icon-circle-style text-center">
+                            <div class="icon">
+                                <!-- <i class="feather-map"></i> -->
+                                <img src="{{frontend_asset_url('images/salek-icon/massage.ico')}}" alt="ماساژ">
+                            </div>
+                            <div class="content">
+                                <h4 class="title w-600"> ماساژ </h4>
+                                <p class="description b1 color-gray mb--0" style="text-align: justify;">
+                                    ماساژ از دیرباز به عنوان نوعی درمان مطرح بوده و  به سالهای بسیار دور باز می‌گردد.
+ما درمجموعه ورزشی سالک منتظر شما هستیم تا با ارائه ی انواع ماساژهای درمانی و ریلکسی تجربه ی متفاوت و لذت بخشی را به شما هدیه کنیم.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12" data-sal="slide-up" data-sal-duration="700" data-sal-delay="200">
+                        <div class="service service__style--1 icon-circle-style text-center">
+                            <div class="icon">
+                                <!-- <i class="feather-cast"></i> -->
+                                <img src="{{frontend_asset_url('images/salek-icon/food.ico')}}" alt="تغذیه">
+                            </div>
+                            <div class="content">
+                                <h4 class="title w-600"> تغذیه</h4>
+                                <p class="description b1 color-gray mb--0" style="text-align: justify;"> 
+                                    از آن جایی که تغذیه صحیح تاثیر مستقیم بر روی سلامت جسم و ذهن و بهبود عملکرد ورزشی می گذارد، قصد داریم با کمک مجرب ترین متخصصین به شما کمک  کنیم تا در جهت داشتن یک روتین تغذیه ای سالم و متعادل، گام بردارید.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Start Service-5 Area  -->
+
+        <!-- Start Seperator Area  -->
+        <div class="rbt-separator-mid">
+            <div class="container">
+                <hr class="rbt-separator m-0">
+            </div>
+        </div>
+        <!-- End Seperator Area  -->
+
+        <!-- Video js sample Code Srart About Area  -->
+            <div class="about-area about-style-4 rn-section-gap">
+                    <div class="container">
+                        <div class="row row--40 align-items-center">
+                            <div class="col-lg-6">
+                                <div class="video-btn">
+                                    <div class="video-popup icon-center">
+                                        <div class="overlay-content">
+                                            <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360" poster="{{frontend_asset_url('images/about/about-us-salek.jpg')}}">
+                                                <!-- Placeholder: Source added dynamically -->
+                                              </video>
+                                        </div>
+                                    </div>
+                                    <div class="video-lightbox-wrapper"></div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-6 mt_md--40 mt_sm--40">
+                                <div class="content">
+                                    <div class="inner">
+                                        <h3 class="title"><br>  <strong> گشتی در باشگاه سالک
+                                        </strong>
+                                        </h3>
+                                        <ul class="feature-list">
+                                            <li>
+                                                <div class="icon">
+                                                    <i class="feather-check"></i>
+                                                </div>
+                                                <div class="title-wrapper">
+                                                    <h4 class="title"> درباره ما     </h4>
+                                                    <p class="text">باشگاه سالک در سال 1394 توسط مهدی سالک تاسیس شد. از آن زمان تاکنون باشگاه سالک با بهره‌گیری از توان و تجربه‌ی مربّی‌هایی حرفه‌ای ، کارامد و دارای مدارک سطح بالای بین‌المللی توانسته است که محیطی سلامت، شاد و مطابق با استانداردهای جهانی را در اختیار اعضای خود بگذارد.</p>
+                                                </div>
+                                            </li>
+                                            
+                                        </ul>
+                                        <div class="about-btn mt--30"><a class="btn-default" href="page/about-us/">درباره ما</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <hr>
+        <!-- End About Area  -->
+
+        <!-- Start Gallery Large Style-1  -->
+        <div class="rwt-gallery-area rn-section-gapBottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-title text-center" data-sal="slide-up" data-sal-duration="700" data-sal-delay="100">
+                            <h4 class="subtitle ">
+                                <span class="theme-gradient">دوره های آنلاین  </span>
+                            </h4>
+                            <h2 class="title w-600 mb--20">دوره های آنلاین  سالک
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row--15">
+
+                    {%  for Course in lastOnlineCourse  %}
+                    <div class="col-lg-4 col-md-6 col-sm-12 col-12 mt--30" data-sal="slide-up" data-sal-duration="700">
+                        <div class="rn-card box-card-style-default">
+                            <div class="inner">
+                                {% set link = 'online-course-details/' + Course.slug  %}
+                                <div class="thumbnail"><a class="image" href="{{link}}"><img src="{{Course.img}}" alt="{{Course.title}}"></a></div>
+                                <div class="content">
+                                    <ul class="rn-meta-list">
+                                        <li><a href="{{link}}">{{Course.title}}</a></li>
+                                       
+                                    </ul>
+                                    <h4 class="title"><a href="{{link}}">{{Course.title}}</a></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}     
+
+                   
+                </div>
+            </div>
+        </div>
+        <!-- Fnd Gallery Large Style-1  -->
+
+                <!-- Start Gallery Large Style-1  -->
+                <div class="rwt-gallery-area rn-section-gapBottom">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section-title text-center" data-sal="slide-up" data-sal-duration="700" data-sal-delay="100">
+                                    <h4 class="subtitle ">
+                                        <span class="theme-gradient">دوره های آفلاین  </span>
+                                    </h4>
+                                    <h2 class="title w-600 mb--20">دوره های آفلاین  سالک
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row--15">
+        
+                            {%  for Course in lastOfflineCourse  %}
+                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mt--30" data-sal="slide-up" data-sal-duration="700">
+                                <div class="rn-card box-card-style-default">
+                                    <div class="inner">
+                                        {% set link = 'offline-course-details/' + Course.slug  %}
+                                        <div class="thumbnail"><a class="image" href="{{link}}"><img src="{{Course.img}}" alt="{{Course.title}}"></a></div>
+                                        <div class="content">
+                                            <ul class="rn-meta-list">
+                                                <li><a href="{{link}}">{{Course.title}}</a></li>
+                                               
+                                            </ul>
+                                            <h4 class="title"><a href="{{link}}">{{Course.title}}</a></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}     
+        
+                           
+                        </div>
+                    </div>
+                </div>
+                <!-- Fnd Gallery Large Style-1  -->
+
+
+             <!-- Start Blog Area  -->
+     <div class="blog-area rn-section-gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title text-center" data-sal="slide-up" data-sal-duration="700" data-sal-delay="100">
+                        <h4 class="subtitle "><span class="theme-gradient">دوره های حضوری اخیر </span></h4>
+                        <h2 class="title w-600 mb--20">دوره حضوری</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row row--15">
+
+                {%  for Course in lastFceToFaceCourse  %}
+
+                <div class="col-lg-4 col-md-6 col-sm-12 col-12 mt--30" data-sal="slide-up" data-sal-duration="700">
+                    <div class="rn-card box-card-style-default">
+                        <div class="inner">
+                            {% set link = 'face-to-face-course-details/' + Course.slug  %}
+                            <div class="thumbnail"><a class="image" href="{{link}}"><img src="{{Course.img}}" alt="{{Course.title}}"></a></div>
+                            <div class="content">
+                                <ul class="rn-meta-list">
+                                    <li><a href="#"> {{Course.title}} </a></li>
+                                  
+                                </ul>
+                                <h4 class="title"><a href="{{link}}">{{Course.title}}</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}     
+
+            </div>
+        </div>
+    </div>
+    <!-- End Blog Area  -->
+
+
+        <!-- Start Seperator Area  -->
+        <div class="rbt-separator-mid">
+            <div class="container">
+                <hr class="rbt-separator m-0">
+            </div>
+        </div>
+        <!-- End Seperator Area  -->
+
+    
+        <!-- Start Seperator Area  -->
+        <div class="rbt-separator-mid">
+            <div class="container">
+                <hr class="rbt-separator m-0">
+            </div>
+        </div>
+        <!-- End Seperator Area  -->
+ <!-- Start مشتریان سبک یک  -->
+ <div class="rwt-testimonial-area rn-section-gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title text-center" data-sal="slide-up" data-sal-duration="700" data-sal-delay="100">
+                    <h4 class="subtitle ">
+                        <span class="theme-gradient">مربیان </span>
+                    </h4>
+                    <h2 class="title w-600 mb--20"> مشخصات مربی‌ها سانس آقایان
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row--15">
+
+            {%  for Coach in allManCoach  %}   
+            <div class="col-lg-4 col-md-6 col-12 mt--30" data-sal="slide-up" data-sal-duration="700">
+                <div class="rn-team team-style-default">
+                    <div class="inner">
+                        <div class="thumbnail">
+                            <img src="{{Coach.img}}" alt="{{Coach.name}}">
+                        </div>
+                        <div class="content">
+                            <h2 class="title">  {{Coach.name}} </h2>
+                            <h6 class="subtitle theme-gradient">  {{Coach.name}} </h6>
+                            <p class="description"> {{Coach.short_description}}</p>
+                            {% set link = 'coach/' + Coach.slug  %}
+                            <div class="team-form"><a href="{{link}}">مشخصات</a></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+               
+           
+            {% endfor %}     
+            
+        </div>
+    </div>
+</div>
+<!-- End مشتریان سبک یک  -->
+
+<!-- Start مشتریان سبک یک  -->
+<div class="rwt-testimonial-area rn-section-gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title text-center" data-sal="slide-up" data-sal-duration="700" data-sal-delay="100">
+                    <h4 class="subtitle ">
+                        <span class="theme-gradient">مربیان </span>
+                    </h4>
+                    <h2 class="title w-600 mb--20"> مشخصات مربی‌ها سانس بانوان
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row--15">
+
+            
+            {%  for Coach in allWomanCoach  %}
+            <div class="col-lg-4 col-md-6 col-12 mt--30" data-sal="slide-up" data-sal-duration="700">
+                <div class="rn-team team-style-default">
+                    <div class="inner">
+                        <div class="thumbnail">
+                            <img src="{{Coach.img}}" alt="{{Coach.name}}">
+                        </div>
+                        <div class="content">
+                            <h2 class="title">  {{Coach.name}} </h2>
+                            <h6 class="subtitle theme-gradient">  {{Coach.name}} </h6>
+                            <p class="description"> {{Coach.short_description}}</p>
+                            {% set link = 'coach/' + Coach.slug  %}
+                            <div class="team-form"><a href="{{link}}">مشخصات</a></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            
+           
+            {% endfor %}     
+            
+        </div>
+    </div>
+</div>
+<hr>
+<!-- End مشتریان سبک یک  -->
+
+    <hr>
+        <!-- Start Blog Area  -->
+        <div class="blog-area rn-section-gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-title text-center" data-sal="slide-up" data-sal-duration="700" data-sal-delay="100">
+                            <h4 class="subtitle "><span class="theme-gradient">اخبار اخیر </span></h4>
+                            <h2 class="title w-600 mb--20">وبلاگ</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row--15">
+
+                    {%  for Blog in lastBlog  %}
+
+                    <div class="col-lg-4 col-md-6 col-sm-12 col-12 mt--30" data-sal="slide-up" data-sal-duration="700">
+                        <div class="rn-card box-card-style-default">
+                            <div class="inner">
+                                {% set link = 'blog/' + Blog.slug  %}
+                                <div class="thumbnail"><a class="image" href="{{link}}"><img src="{{Blog.img}}" alt="{{Blog.title}}"></a></div>
+                                <div class="content">
+                                    <ul class="rn-meta-list">
+                                        <li><a href="#"> آخرین بروزرسانی  </a></li>
+                                        <li class="separator">/</li>
+                                        <li> {{ toJalaali(Blog.last_edit_date_time) }}</li>
+                                    </ul>
+                                    
+
+                                    <h4 class="title"><a href="{{link}}">{{Blog.title}}</a></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endfor %}     
+
+                </div>
+            </div>
+        </div>
+        <!-- End Blog Area  -->
+
+        <div class="rwt-callto-action-area rn-section-gapBottom">
+            <div class="wrapper">
+                <div class="rn-callto-action clltoaction-style-default style-5">
+                    <div class="container">
+                        <div class="row row--0 align-items-center content-wrapper theme-shape">
+                            <div class="col-lg-12">
+                                <div class="inner">
+                                    <div class="content text-center">
+                                        <h2 class="title">آماده شروع حال خوب هستید؟     </h2>
+                                        <h6 class="subtitle">بهترین انتخاب برای منزل و محل کار شما</h6>
+                                        <div class="call-to-btn">
+                                            <a class="btn-default btn-icon" href="user/dashboard">اکنون ثبت نام کنید
+                                                <i class="feather-arrow-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+{% endblock %}
+{% block js %}
+
+<script src="{{ frontend_asset_url('js/video.min.js')}}"></script>  
+<script>
+    // Initialize Video.js
+    const player = videojs('video-player', {
+      controls: true,
+      autoplay: false,
+      preload: 'auto',
+      fluid: true, // Makes it responsive
+    });
+
+    // Add M3U8 source
+    player.src({
+      src: `{{frontend_asset_url('video/about.mp4')}}`,
+    });
+  </script>
+{% endblock %}

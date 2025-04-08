@@ -1,0 +1,244 @@
+<{% extends "../layout/base.html" %}
+{% block css %}
+
+<link rel="stylesheet" href="{{frontend_asset_url('css/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ frontend_asset_url('css/toastr.min.css') }}">
+
+{% endblock %}
+
+{% block body %}
+<div class="slider-area slider-bg-image slider-style-5 bg-overlay-solid height-850 bg_image bg_image--13" data-black-overlay="3">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="inner text-start">
+                    <h4 class="subtitle">   خوش آمدید</h4>
+                    <h1 class="title display-one"> سلام {{userInfo.fn}} عزیز !</h1>
+                    <div class="button-group mt--40 mt_sm--20"><a class="btn-default"  href="/user/profile">پروفایل</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Slider Area  -->
+ <!-- Start Blog Area  -->
+<div class="rn-service-area rn-section-gap ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title text-center" data-sal="slide-up" data-sal-duration="700" data-sal-delay="100">
+                    <h4 class="subtitle "><span class="theme-gradient"> جزیات فعالیت  </span></h4>
+                    <h2 class="title w-600 mb--20">لیست دوره  </h2>
+                    <p class="description"> در زیر  بخشی از فعالیت های خود در مجموعه ورزشی سالک را مشاهده میکنید</p>
+                </div>
+            </div>
+        </div>
+        <div class="row row--15" style="background-color: #f5f8fa;">
+            
+            <div class="container mt-5">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover text-center align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>نام دوره</th>
+                                <th> نوع دوره</th>
+                                <th>لینک دوره</th>
+                                <th>قیمت</th>
+                                <th>  مشاهده فیلم های آموزشی</th>
+                                <th>    تاریخ انقضا دوره </th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%  for Order in allOrder.orders  %}
+                            <tr>
+                                <td> {{Order.title}}</td>
+                                {% if(Order.type === 1) %}
+                                <td> دوره آنلاین</td>
+                                {% elif(Order.type === 2) %}
+                                <td> دوره آفلاین</td>
+                                {% elif(Order.type === 3) %}
+                                <td> دوره حضوری</td>
+                            {% endif %}
+                            <td>
+                                <a href="{{urlSkyroom}}">
+                                    <span class="fa fa-link"></span>
+                                </a>
+                            </td>
+
+                                <td>{{Order.price}}</td>  
+                                {% if(Order.type === 1 or Order.type ===2 ) %}
+                                <td>
+                                    <a href="{{url}}{{Order.type}}/{{Order.slug}}">
+                                        <span class="fa fa-video-camera"></span>
+                                    </a>
+                                </td>
+                                {% elif(Order.type === 3)%}
+                                    بدون فایل
+                                
+                                {% endif %}
+
+                                <td>
+                                    {% if(Order.expire_time) %}
+                                        <span class="badge bg-primary">
+                                            {{ toJalaali(Order.expire_time) }}
+                                        </span>
+                                    
+                                    {% endif %}
+                                   
+                                </td>
+
+                            </tr>
+                            {% endfor %}  
+
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2" class="text-end">جمع کل:</td>
+                                <td colspan="2">{{allOrder.totalPrice}} تومان</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+              
+        </div>
+    </div>
+</div>
+<!-- End Blog Area  -->
+<br>
+<hr>
+<br>
+
+
+<!-- Start Seperator Area  -->
+<div class="rbt-separator-mid">
+    <div class="container">
+        <hr class="rbt-separator m-0">
+    </div>
+</div>
+<!-- End Seperator Area  -->
+
+
+
+
+<!-- Start Seperator Area  -->
+<div class="rbt-separator-mid">
+    <div class="container">
+        <hr class="rbt-separator m-0">
+    </div>
+</div>
+<!-- End Seperator Area  -->
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="section-title text-center sal-animate" data-sal="slide-up" data-sal-duration="700" data-sal-delay="100">
+            <h4 class="subtitle "><span class="theme-gradient">فعالیت های شما   </span></h4>
+            <h2 class="title w-600 mb--20">فعالیت  اخیر شما در وب سایت  </h2>
+            <p class="description"> در زیر  بخشی از فعالیت های خود در مجموعه ورزشی سالک را مشاهده میکنید</p>
+            <p class="description">  توجه :نام کاربری ورمز عبور کلاس های آنلاین  شما با  موبایل و رمز عبور پروفایل شما در وب سایت یکسان است! </p>
+        </div>
+    </div>
+</div>
+
+
+<!-- Start Split Area  -->
+<div class="rwt-split-area">
+    <div class="wrapper">
+        <div class="rn-splite-style bg-color-blackest">
+            <div class="split-wrapper">
+                <div class="row g-0 radius-10 align-items-center">
+                    <div class="col-lg-12 col-xl-6 col-12">
+                        <div class="thumbnail"><img src="{{frontend_asset_url('images/dash-smal.jpg')}}" alt="{{title}}">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-xl-6 col-12">
+                        <div class="split-inner">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="count-box counter-style-4 text-start">
+                                        <div>
+                                            <div class="count-number"><span class="counter">{{countOrder}}</span></div>
+                                        </div>
+                                        <h5 class="counter-title"> تعداد دوره های شما  </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Split Area  -->
+
+
+
+
+
+<!-- Start Seperator Area  -->
+<div class="rbt-separator-mid">
+    <div class="container">
+        <hr class="rbt-separator m-0">
+    </div>
+</div>
+<!-- End Seperator Area  -->
+
+<!-- Start Blog Area  -->
+<div class="blog-area rn-section-gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title text-center" data-sal="slide-up" data-sal-duration="700" data-sal-delay="100">
+                    <h4 class="subtitle "><span class="theme-gradient">اخبار اخیر </span></h4>
+                    <h2 class="title w-600 mb--20">اخبار اخیر وب سایت  </h2>
+                    <p class="description b1">  آخرین رویداد ها </p>
+                </div>
+            </div>
+        </div>
+        <div class="row row--15">
+
+            {%  for Blog in lastBlog  %}
+
+            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mt--30" data-sal="slide-up" data-sal-duration="700">
+                <div class="rn-card box-card-style-default">
+                    <div class="inner">
+                        {% set link = 'blog/' + Blog.slug  %}
+                        <div class="thumbnail"><a class="image" href="{{link}}"><img src="{{Blog.img}}" alt="{{Blog.title}}"></a></div>
+                        <div class="content">
+                            <ul class="rn-meta-list">
+                                <li><a href="#"> آخرین بروزرسانی  </a></li>
+                                <li class="separator">/</li>
+                                <li> {{ toJalaali(Blog.last_edit_date_time) }}</li>
+                            </ul>
+                            
+
+                            <h4 class="title"><a href="{{link}}">{{Blog.title}}</a></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}     
+        </div>
+    </div>
+</div>
+<!-- End Blog Area  -->
+
+{% endblock %}
+{% block js %}
+<script src="{{ backend_asset_url('vendors/js/libs/jdate/jdate.min.js') }}"></script>
+<script src="{{ frontend_asset_url('js/toastr.min.js')}}"></script>    
+<script src="{{ frontend_asset_url('js/sweetalert2.min.js')}}"></script>  
+<script src="{{ frontend_asset_url('controllers/user/dashboard.js') }}"></script>
+
+<script>
+
+</script>
+
+{% endblock %}>

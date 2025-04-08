@@ -1,0 +1,497 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+<link rel="stylesheet" href="{{ backend_asset_url('css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ frontend_asset_url('css/persianDatepicker-default.css') }}">
+
+
+{% endblock %}
+{% block navbar %}
+<div class="col-12">
+    <h2 class="float-start mb-0">
+        {{ title }}
+    </h2>
+</div>
+{% endblock %}
+
+{% block body %}
+
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+               
+                {% AlertDanger "err1" %}
+                    ایمیل را وارد کنید.
+                {% endAlertDanger %}  
+                {% AlertDanger "err2" %}
+                    ایمیل معتبر نمی باشد.
+                {% endAlertDanger %}  
+                {% AlertDanger "err3" %}
+                    نام کاربری را وارد نمایید .
+                {% endAlertDanger %}  
+                {% AlertDanger "err4" %}
+                    نام کاربری معتبر نمی باشد
+                {% endAlertDanger %}  
+
+
+                {% AlertDanger "-1" %}
+                    ایمیل تکراری می باشد.
+                {% endAlertDanger %}  
+
+                {% AlertDanger "-2" %}
+                    نام کاربری تکراری می باشد.
+                {% endAlertDanger %}  
+
+                {% AlertDanger "csrf_token_invalid" %}
+                    {{ t('csrf_token_invalid') }}
+                {% endAlertDanger %}  
+
+                {% AlertSuccess "ok" %}
+                    {{ t('save_success') }}
+                {% endAlertSuccess %}                     
+
+                {% AlertDanger "0" %}
+                    {{ t('save_error') }}
+                {% endAlertDanger %}  
+
+
+                <form class="form form-horizontal"  autocomplete="off" id="form-edit" method="post" action="" enctype="multipart/form-data" autocomplete="off" >
+                    {{ csrf_token() }}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="fn">
+                                    نام کاربر :‌
+                                    <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input dir="rtl" type="text" id="fn" class="form-control" name="fn" value="{{ row.fn }}" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="ln">
+                                        نام خانوادگی  :‌
+                    
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input dir="rtl" type="text" id="ln" class="form-control" name="ln" value="{{ row.ln }}" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="mobile">
+                                        تلفن همراه:
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input dir="ltr" type="text" id="mobile" class="form-control" name="mobile" value="{{ row.mobile }}" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="email">
+                                ایمیل :
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input dir="ltr" type="text" id="email" class="form-control" name="email" value="{{ row.email }}" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="date_birth_shamsi">
+                                        تاریخ تولد:
+                                    </label>
+                                </div>
+                            <div class="col-sm-9">
+                                <input dir="ltr" id="datepicker" class="form-control bdi flatpickr-input active" value=" {{ toJalaali(row.date_birth_ghamari) }}"  name="date_birth_shamsi" placeholder="برای انتخاب تاریخ کلیک کنید" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="category_id">
+                                        گروه بندی کاربر :
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <select id="group_id" class="form-control" name="group_id">
+                                        <option value="" {% if(row.group_id==="" ) %}selected{% endif %}>----</option>
+                                        {% for group in groups %}
+                                        <option value="{{ group._id }}" {% if(row.group_id+'' == group._id ) %}selected{% endif %}>
+                                            {{ group.title }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="gender">
+                                        جنسیت :
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <select id="gender" class="form-control" name="gender">
+                                        <option value="1" {% if(row.gender == "1") %}selected{% endif %}>مرد</option>
+                                        <option value="0" {% if(row.gender == "0") %}selected{% endif %}>زن</option>
+                                    </select>
+                                </div>
+                            </div>
+                
+                        </div>
+
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="country">
+                                        ملیت :
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <select name="country" id="country">
+                                        <option value="IR" {% if(row.country == "IR") %}selected{% endif %}>Iran, Islamic Republic of</option>
+                                        <option value="AF" {% if(row.country == "AF") %}selected{% endif %} >Afghanistan</option>
+                                        <option value="AL"{% if(row.country == "AL") %}selected{% endif %} >Albania</option>
+                                        <option value="DZ"   {% if(row.country == "DZ") %}selected{% endif %} >Algeria</option>
+                                        <option value="AS" {% if(row.country == "AS") %}selected{% endif %} >American Samoa</option>
+                                        <option value="AD"{% if(row.country == "AD") %}selected{% endif %} >Andorra</option>
+                                        <option value="AO" {% if(row.country == "AO") %}selected{% endif %} >Angola</option>
+                                        <option value="AI" {% if(row.country == "AI") %}selected{% endif %} >Anguilla</option>
+                                        <option value="AQ" {% if(row.country == "AQ") %}selected{% endif %} >Antarctica</option>
+                                        <option value="AG"  {% if(row.country == "AG") %}selected{% endif %} >Antigua and Barbuda</option>
+                                        <option value="AR"  {% if(row.country == "AR") %}selected{% endif %}  >Argentina</option>
+                                        <option value="AM" {% if(row.country == "AM") %}selected{% endif %}  >Armenia</option>
+                                        <option value="AW"  {% if(row.country == "AW") %}selected{% endif %} >Aruba</option>
+                                        <option value="AU" {% if(row.country == "AU") %}selected{% endif %} >Australia</option>
+                                        <option value="AT" {% if(row.country == "AT") %}selected{% endif %}>Austria</option>
+                                        <option value="AZ" {% if(row.country == "AZ") %}selected{% endif %}>Azerbaijan</option>
+                                        <option value="BS"{% if(row.country == "BS") %}selected{% endif %}>Bahamas</option>
+                                        <option value="BH" {% if(row.country == "BH") %}selected{% endif %}>Bahrain</option>
+                                        <option value="BD">Bangladesh</option>
+                                        <option value="BB">Barbados</option>
+                                        <option value="BY">Belarus</option>
+                                        <option value="BE">Belgium</option>
+                                        <option value="BZ">Belize</option>
+                                        <option value="BJ">Benin</option>
+                                        <option value="BM">Bermuda</option>
+                                        <option value="BT">Bhutan</option>
+                                        <option value="BO">Bolivia</option>
+                                        <option value="BA">Bosnia and Herzegovina</option>
+                                        <option value="BW">Botswana</option>
+                                        <option value="BR" {% if(row.country == "BR") %}selected{% endif %}>Brazil</option>
+                                        <option value="BN">Brunei Darussalam</option>
+                                        <option value="BG">Bulgaria</option>
+                                        <option value="BF">Burkina Faso</option>
+                                        <option value="BI">Burundi</option>
+                                        <option value="KH">Cambodia</option>
+                                        <option value="CM">Cameroon</option>
+                                        <option value="CA" {% if(row.country == "CA") %}selected{% endif %}  >Canada</option>
+                                        <option value="CV">Cape Verde</option>
+                                        <option value="KY">Cayman Islands</option>
+                                        <option value="CF">Central African Republic</option>
+                                        <option value="TD">Chad</option>
+                                        <option value="CL">Chile</option>
+                                        <option value="CN">China</option>
+                                        <option value="CO">Colombia</option>
+                                        <option value="KM">Comoros</option>
+                                        <option value="CG">Congo</option>
+                                        <option value="CD">Congo, the Democratic Republic of the</option>
+                                        <option value="CR">Costa Rica</option>
+                                        <option value="CI">Côte d'Ivoire</option>
+                                        <option value="HR">Croatia</option>
+                                        <option value="CU">Cuba</option>
+                                        <option value="CY">Cyprus</option>
+                                        <option value="CZ">Czech Republic</option>
+                                        <option value="DK">Denmark</option>
+                                        <option value="DJ">Djibouti</option>
+                                        <option value="DM">Dominica</option>
+                                        <option value="DO">Dominican Republic</option>
+                                        <option value="EC">Ecuador</option>
+                                        <option value="EG">Egypt</option>
+                                        <option value="SV">El Salvador</option>
+                                        <option value="GQ">Equatorial Guinea</option>
+                                        <option value="ER">Eritrea</option>
+                                        <option value="EE">Estonia</option>
+                                        <option value="ET">Ethiopia</option>
+                                        <option value="FJ">Fiji</option>
+                                        <option value="FI">Finland</option>
+                                        <option value="FR">France</option>
+                                        <option value="GA">Gabon</option>
+                                        <option value="GM">Gambia</option>
+                                        <option value="GE">Georgia</option>
+                                        <option value="DE">Germany</option>
+                                        <option value="GH">Ghana</option>
+                                        <option value="GR">Greece</option>
+                                        <option value="GD">Grenada</option>
+                                        <option value="GU">Guam</option>
+                                        <option value="GT">Guatemala</option>
+                                        <option value="GN">Guinea</option>
+                                        <option value="GW">Guinea-Bissau</option>
+                                        <option value="GY">Guyana</option>
+                                        <option value="HT">Haiti</option>
+                                        <option value="HN">Honduras</option>
+                                        <option value="HK">Hong Kong</option>
+                                        <option value="HU">Hungary</option>
+                                        <option value="IS">Iceland</option>
+                                        <option value="IN">India</option>
+                                        <option value="ID">Indonesia</option>
+                                        <option value="IQ">Iraq</option>
+                                        <option value="IE">Ireland</option>
+                                        <option value="IL">Israel</option>
+                                        <option value="IT">Italy</option>
+                                        <option value="JM">Jamaica</option>
+                                        <option value="JP">Japan</option>
+                                        <option value="JO">Jordan</option>
+                                        <option value="KZ">Kazakhstan</option>
+                                        <option value="KE">Kenya</option>
+                                        <option value="KI">Kiribati</option>
+                                        <option value="KP">Korea, Democratic People's Republic of</option>
+                                        <option value="KR">Korea, Republic of</option>
+                                        <option value="KW">Kuwait</option>
+                                        <option value="KG">Kyrgyzstan</option>
+                                        <option value="LA">Lao People's Democratic Republic</option>
+                                        <option value="LV">Latvia</option>
+                                        <option value="LB">Lebanon</option>
+                                        <option value="LS">Lesotho</option>
+                                        <option value="LR">Liberia</option>
+                                        <option value="LY">Libya</option>
+                                        <option value="LI">Liechtenstein</option>
+                                        <option value="LT">Lithuania</option>
+                                        <option value="LU">Luxembourg</option>
+                                        <option value="MO">Macao</option>
+                                        <option value="MK">Macedonia, the former Yugoslav Republic of</option>
+                                        <option value="MG">Madagascar</option>
+                                        <option value="MW">Malawi</option>
+                                        <option value="MY">Malaysia</option>
+                                        <option value="MV">Maldives</option>
+                                        <option value="ML">Mali</option>
+                                        <option value="MT">Malta</option>
+                                        <option value="MH">Marshall Islands</option>
+                                        <option value="MR">Mauritania</option>
+                                        <option value="MU">Mauritius</option>
+                                        <option value="MX">Mexico</option>
+                                        <option value="FM">Micronesia, Federated States of</option>
+                                        <option value="MD">Moldova, Republic of</option>
+                                        <option value="MC">Monaco</option>
+                                        <option value="MN">Mongolia</option>
+                                        <option value="ME">Montenegro</option>
+                                        <option value="MA">Morocco</option>
+                                        <option value="MZ">Mozambique</option>
+                                        <option value="MM">Myanmar</option>
+                                        <option value="NA">Namibia</option>
+                                        <option value="NR">Nauru</option>
+                                        <option value="NP">Nepal</option>
+                                        <option value="NL">Netherlands</option>
+                                        <option value="NZ">New Zealand</option>
+                                        <option value="NI">Nicaragua</option>
+                                        <option value="NE">Niger</option>
+                                        <option value="NG">Nigeria</option>
+                                        <option value="NU">Niue</option>
+                                        <option value="NF">Norfolk Island</option>
+                                        <option value="MP">Northern Mariana Islands</option>
+                                        <option value="NO">Norway</option>
+                                        <option value="OM">Oman</option>
+                                        <option value="PK">Pakistan</option>
+                                        <option value="PW">Palau</option>
+                                        <option value="PS">Palestine, State of</option>
+                                        <option value="PA">Panama</option>
+                                        <option value="PG">Papua New Guinea</option>
+                                        <option value="PY">Paraguay</option>
+                                        <option value="PE">Peru</option>
+                                        <option value="PH">Philippines</option>
+                                        <option value="PL">Poland</option>
+                                        <option value="PT">Portugal</option>
+                                        <option value="PR">Puerto Rico</option>
+                                        <option value="QA">Qatar</option>
+                                        <option value="RO">Romania</option>
+                                        <option value="RU">Russian Federation</option>
+                                        <option value="RW">Rwanda</option>
+                                        <option value="KN">Saint Kitts and Nevis</option>
+                                        <option value="LC">Saint Lucia</option>
+                                        <option value="VC">Saint Vincent and the Grenadines</option>
+                                        <option value="WS">Samoa</option>
+                                        <option value="SM">San Marino</option>
+                                        <option value="ST">Sao Tome and Principe</option>
+                                        <option value="SA">Saudi Arabia</option>
+                                        <option value="SN">Senegal</option>
+                                        <option value="RS">Serbia</option>
+                                        <option value="SC">Seychelles</option>
+                                        <option value="SL">Sierra Leone</option>
+                                        <option value="SG">Singapore</option>
+                                        <option value="SK">Slovakia</option>
+                                        <option value="SI">Slovenia</option>
+                                        <option value="SB">Solomon Islands</option>
+                                        <option value="SO">Somalia</option>
+                                        <option value="ZA">South Africa</option>
+                                        <option value="SS">South Sudan</option>
+                                        <option value="ES">Spain</option>
+                                        <option value="LK">Sri Lanka</option>
+                                        <option value="SD">Sudan</option>
+                                        <option value="SR">Suriname</option>
+                                        <option value="SZ">Swaziland</option>
+                                        <option value="SE">Sweden</option>
+                                        <option value="CH">Switzerland</option>
+                                        <option value="SY">Syrian Arab Republic</option>
+                                        <option value="TW">Taiwan, Province of China</option>
+                                        <option value="TJ">Tajikistan</option>
+                                        <option value="TZ">Tanzania, United Republic of</option>
+                                        <option value="TH">Thailand</option>
+                                        <option value="TL">Timor-Leste</option>
+                                        <option value="TG">Togo</option>
+                                        <option value="TO">Tonga</option>
+                                        <option value="TT">Trinidad and Tobago</option>
+                                        <option value="TN">Tunisia</option>
+                                        <option value="TR">Turkey</option>
+                                        <option value="TM">Turkmenistan</option>
+                                        <option value="TV">Tuvalu</option>
+                                        <option value="UG">Uganda</option>
+                                        <option value="UA">Ukraine</option>
+                                        <option value="AE">United Arab Emirates</option>
+                                        <option value="GB">United Kingdom</option>
+                                        <option value="US">United States</option>
+                                        <option value="UY">Uruguay</option>
+                                        <option value="UZ">Uzbekistan</option>
+                                        <option value="VU">Vanuatu</option>
+                                        <option value="VE">Venezuela, Bolivarian Republic of</option>
+                                        <option value="VN">Viet Nam</option>
+                                        <option value="YE">Yemen</option>
+                                        <option value="ZM">Zambia</option>
+                                        <option value="ZW">Zimbabwe</option>
+                                    </select>
+                                </div>
+                            </div>
+                
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="pass1">
+                                        {{ t('کلمه عبور') }} : 
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input dir="ltr" type="password" id="pass1" class="form-control" name="pass1" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="pass2">
+                                        {{ t('تکرار کلمه عبور') }} : 
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input dir="ltr" type="password" id="pass2" class="form-control" name="pass2" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="short_description">
+                                         آدرس :
+                                        ‌
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <textarea style="height:120px ;" id="address" class="form-control" name="address" autocomplete="off">{{ row.address }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="status">
+                                        {{ t('status') }} : 
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <select id="status" class="form-control" name="status">
+                                        <option value="1" {% if(row.status == true) %}selected{% endif %}>{{ t('status_enable') }}</option>
+                                        <option value="0" {% if(row.status == false) %}selected{% endif %}>{{ t('status_disabled') }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="avatar">
+                                       آواتار :  
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    {% if(row.avatar) %}
+                                        {% set avatar_url = FRONTEND_URL + row.avatar %}
+                                        <a href="{{ avatar_url }}" target="_blank">
+                                            <img src="{{ avatar_url }}" alt="logo" class="round" style="width: 200px;height:100px;">
+                                        </a>
+                                    {% else %} 
+                                        -
+                                    {% endif %} 
+                                </div>
+                            </div>
+                        </div>
+                
+                        </div>
+                        
+                                    
+                        <div class="col-sm-9 offset-sm-3">
+                            <button type="submit" class="btn btn-primary me-1">
+                                {{ t('save') }}
+                            </button>
+                            <button type="button" onclick="redirect(BACKEND_URL+'users/');" class="btn btn-danger">
+                                {{ t('back') }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block js %}  
+<script src="{{ backend_asset_url('js/select2.min.js') }}"></script>
+<script src="{{ backend_asset_url('controllers/users/edit.js') }}"></script>
+<!-- <script src="{{ backend_asset_url('vendors/js/libs/bootstrap/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script> -->
+<script src="{{ frontend_asset_url('/js/persianDatepicker.min.js') }}"></script>
+
+<script type="text/javascript">
+    $("#datepicker").attr("autocomplete", "off");
+
+    $("#datepicker").persianDatepicker({ alwaysShow: true,  formatDate: "YYYY-0M-0D" });
+
+</script>
+
+
+{% endblock %}

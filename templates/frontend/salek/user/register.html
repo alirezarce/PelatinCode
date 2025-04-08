@@ -1,0 +1,83 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+<link rel="stylesheet" href="{{frontend_asset_url('css/sweetalert2.min.css') }}">
+<link rel="stylesheet" href="{{frontend_asset_url('css/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ frontend_asset_url('css/toastr.min.css') }}">
+
+
+{% endblock %}
+
+{% block body %}
+
+
+
+<!-- Start Contact Area  -->
+    <div class="main-content">
+
+        <div class="rwt-contact-area rn-section-gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 mb--40">
+                        <div class="section-title text-center" data-sal="slide-up" data-sal-duration="700" data-sal-delay="100">
+                            <h4 class="subtitle "><span class="theme-gradient">    فرم  ثبت نام </span></h4>
+                            <h2 class="title w-600 mb--20">
+                                
+                                برای استفاده از امکانات وب سایت لطفا ثبت نام نمایید.
+
+                            </h2>
+                        </div>
+                    </div>
+                     
+                    <form class="contact-form-1 rwt-dynamic-form" id="registerForm" method="post" autocomplete="off" style="max-width: 85%;
+    padding-right: 112px;" >
+                        
+                        
+                        <div class="form-group">
+                            <input dir="ltr" autocomplete="off" type="mobile" id="mobile" name="mobile"  placeholder=" شماره موبایل خود را وارد کنید">
+                        </div>
+                        <div class="form-group">
+                            <input dir="ltr" autocomplete="off" type="password" id="password" name="password" placeholder=" رمزعبور خودرا وارد کنید ">
+                        </div>
+                        <div class="form-group">
+                            <input dir="ltr" autocomplete="off" type="password" id="confirm_password" name="confirm_password" placeholder="  تکرار رمزعبور خودرا وارد کنید ">
+                        </div>
+
+                       
+                        <div class="form-group">
+                            <button name="submit" type="submit"  name="btn_register" id="submit" class="btn-default btn-large rn-btn">
+                                <span>  
+                                    ثبت نام
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <h6 class="subtitle "><a href="/user/login"><span class="theme-gradient">    ورود به حساب کاربری </a></span></h4>
+                    <h6 class="subtitle "><a href="/user/reset-password"><span class="theme-gradient">  بازیابی حساب کاربری </a></span></h4>
+    
+                </div>
+            
+
+                    
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+          
+    </div>
+<!-- End Contact Area  -->
+
+
+
+
+
+
+{% endblock %}
+{% block js %}
+<script src="{{ frontend_asset_url('controllers/user/register.js') }}"></script>
+<script src="{{ frontend_asset_url('js/toastr.min.js')}}"></script>    
+<script src="{{ frontend_asset_url('js/sweetalert2.min.js')}}"></script>  
+
+
+{% endblock %}

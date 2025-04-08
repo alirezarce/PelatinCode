@@ -1,0 +1,130 @@
+{% extends "../layout/base.html" %}
+{% block css %}
+    <link rel="stylesheet" href="{{ backend_asset_url('css/select2.min.css') }}">
+{% endblock %}
+{% block navbar %}
+<div class="col-12">
+    <h2 class="float-start mb-0">
+        {{ title }}
+    </h2>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+               
+                {% AlertDanger "err1" %}
+                    {{ t('category.validation_title_seo_required') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err2" %}
+                    {{ t('category.validation_description_seo_required') }}
+                {% endAlertDanger %}  
+                {% AlertDanger "err3" %}
+                    لطفا متن صفحه را وارد نمایید.
+                {% endAlertDanger %}  
+                {% AlertDanger "csrf_token_invalid" %}
+                    {{ t('csrf_token_invalid') }}
+                {% endAlertDanger %}  
+
+                {% AlertSuccess "ok" %}
+                    {{ t('save_success') }}
+                {% endAlertSuccess %}                     
+
+                {% AlertDanger "0" %}
+                    {{ t('save_error') }}
+                {% endAlertDanger %}  
+
+                <form class="form form-horizontal" id="form-edit" method="post" action="" enctype="multipart/form-data">
+                    {{ csrf_token()  }}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="title">
+                                        عنوان صفحه :‌
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="title" class="form-control" disabled value="{{ row.title }}">
+                                </div>
+                            </div>
+                        </div>
+                     
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="content">
+                                        متن صفحه  : 
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <textarea style="height:120px;" id="content" class="form-control" name="content">{{ row.content }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="slug">
+                                        slug : 
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input dir="ltr" type="text" id="slug"  class="form-control" disabled value="{{ row.slug }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="title_seo">
+                                        {{ t('title_seo') }} : 
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="title_seo" class="form-control" name="title_seo" value="{{ row.title_seo }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="description_seo">
+                                        {{ t('description_seo') }} : 
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <textarea style="height:120px ;" id="description_seo" class="form-control" name="description_seo">{{ row.description_seo }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9 offset-sm-3">
+                            <button type="submit" class="btn btn-primary me-1">
+                                {{ t('save') }}
+                            </button>
+                            <button type="button" onclick="redirect('{{ back_url }}');" class="btn btn-danger">
+                                {{ t('back') }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}  
+<script src="{{ backend_asset_url('js/select2.min.js') }}"></script>
+<script src="{{ backend_asset_url('ckeditor/ckeditor.js') }}"></script>
+<script src="{{ backend_asset_url('controllers/page/edit.js') }}"></script>
+{% endblock %}

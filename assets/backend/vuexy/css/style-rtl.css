@@ -1,0 +1,76 @@
+@font-face {
+    font-family: 'Samim';
+    src: url('../fonts/samim-font/Samim.eot');
+    src: url('../fonts/samim-font/Samim.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/samim-font/Samim.woff2') format('woff2'),
+         url('../fonts/samim-font/Samim.woff') format('woff'),
+         url('../fonts/samim-font/Samim.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Samim';
+    src: url('../fonts/samim-font/Samim-Bold.eot');
+    src: url('../fonts/samim-font/Samim-Bold.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/samim-font/Samim-Bold.woff2') format('woff2'),
+         url('../fonts/samim-font/Samim-Bold.woff') format('woff'),
+         url('../fonts/samim-font/Samim-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'Samim';
+    src: url('../fonts/samim-font/Samim-Medium.eot');
+    src: url('../fonts/samim-font/Samim-Medium.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/samim-font/Samim-Medium.woff2') format('woff2'),
+         url('../fonts/samim-font/Samim-Medium.woff') format('woff'),
+         url('../fonts/samim-font/Samim-Medium.ttf') format('truetype');
+    font-weight: 500;
+}
+
+body{
+	font-family: 'Samim';
+}
+
+
+label.error{
+    color: red;
+    font-size: 14px;
+    padding-top: 5px;
+}
+
+a.dropdown-item{
+    font-family: 'Samim';
+}
+
+.col-form-label, .col-form-label-lg, .col-form-label-sm{
+    font-size: inherit !important;
+}
+
+.header-navbar .navbar-container ul.navbar-nav li a.dropdown-user-link .user-name{
+    font-family: 'Samim';
+}
+
+.navigation-main{
+    font-family: 'Samim';
+}
+
+
+.pagination-input-holder{
+    padding-top: 5px;
+}
+
+.pagination-input-page{
+    height: 22px;
+    text-align: center;
+    direction: ltr;
+}
+
+
+.table tfoot th, .table thead th{
+    text-transform: none ;
+}
+
+html .content {
+    margin-right: 290px;
+}
